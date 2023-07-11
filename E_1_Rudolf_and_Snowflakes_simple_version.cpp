@@ -30,7 +30,7 @@ int dy[] = {1,0,-1,0};
 int dxx[] = {0,1,0,-1,1,1,-1,-1};
 int dyy[] = {1,0,-1,0,1,-1,1,-1};
 
-const long long MOD = 1e9+7 , N = 2e5+10 , INF = INT_FAST64_MAX;
+const long long MOD = 1e9+7 , N = 1e6+1 , INF = INT_FAST64_MAX;
 const long double PI= 3.14159265358979323846264338327950288;
 
 inline ll vin() {ll x;cin >> x;return x;}
@@ -40,30 +40,16 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+vector<bool> ck(N,false);
+
 void solve()
 {
-        ll n = vin() , d = vin(), h = vin();
-        vector<ll> a(n);
-        for(auto &x:a) x = vin();
-        sort(all(a));
-        a.push_back(INF);
-
-        ld ans = 0.0;
-        ld baseTriArea = 0.5*(ld)(d)*(ld)(h); 
-        ld ratio = (((ld)(d))/((ld)(h)));
-
-        for(int i=0; i<n; i++) {
-            if(a[i+1] == a[i]) {
-                continue;
-            } else if(a[i+1] > a[i]+h) {
-                ans += baseTriArea;
-            } else {
-                ld hNew = h-(a[i+1]-a[i]);
-                ld dNew = ratio*hNew;
-                ans += baseTriArea - (dNew*hNew)/2;
-            }
+        ll n = vin();
+        if(ck[n]) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
         }
-        cout << fixed << setprecision(10) << ans << endl;
         return;
 }
 
@@ -71,6 +57,15 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
+        /* Pre-calculation */
+        for(int i=2; i<N; i++) {
+            ll x = i, cnt = i+1;
+            while(x*i < N && cnt+x*i < N) {
+                x *= i;
+                cnt += x;
+                ck[cnt] = true;
+            }
+        }
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";

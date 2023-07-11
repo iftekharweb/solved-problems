@@ -40,30 +40,27 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+bool isPossible(ll mid, ll po, ll n) {
+    ll cnt = 0;
+    for(int i=0; i<=po; i++) {
+        ll x = mid;
+        for(int j=0; j<=i; j++) {
+            x *= x;
+            cnt += x;
+        }
+    }
+}
+
 void solve()
 {
-        ll n = vin() , d = vin(), h = vin();
-        vector<ll> a(n);
-        for(auto &x:a) x = vin();
-        sort(all(a));
-        a.push_back(INF);
+        ll n = vin();
+        for(int i=2; i<64; i++) {
+            ll lo = 2 , hi = 1e9, mid;
+            while( hi-lo > 1) {
+                mid = lo+(hi-lo)/2;
 
-        ld ans = 0.0;
-        ld baseTriArea = 0.5*(ld)(d)*(ld)(h); 
-        ld ratio = (((ld)(d))/((ld)(h)));
-
-        for(int i=0; i<n; i++) {
-            if(a[i+1] == a[i]) {
-                continue;
-            } else if(a[i+1] > a[i]+h) {
-                ans += baseTriArea;
-            } else {
-                ld hNew = h-(a[i+1]-a[i]);
-                ld dNew = ratio*hNew;
-                ans += baseTriArea - (dNew*hNew)/2;
             }
         }
-        cout << fixed << setprecision(10) << ans << endl;
         return;
 }
 
