@@ -30,7 +30,7 @@ int dy[] = {1,0,-1,0};
 int dxx[] = {0,1,0,-1,1,1,-1,-1};
 int dyy[] = {1,0,-1,0,1,-1,1,-1};
 
-const long long MOD = 1e9+7 , N = 2e5+10 , INF = INT_FAST64_MAX;
+const long long MOD = 1e9+7 , N = 1e6 , INF = INT_FAST64_MAX;
 const long double PI= 3.14159265358979323846264338327950288;
 
 inline ll vin() {ll x;cin >> x;return x;}
@@ -43,25 +43,37 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 void solve()
 {
         ll n = vin();
-        vector<ll> a(n);
-        for(int i=0; i<n; i++) {
-            a[i] = vin();
-        }
-        ll mx = *(max_element(all(a)));
-        if(mx<0) {
-            cout << mx << endl;
+        if(n == 1) {
+            cout << 'a' << endl;
             return;
         }
-        
-        ll sum1 = 0;
-        for(int i=0; i<n; i+=2) {
-            if(a[i] >= 0) sum1 += a[i];
+        vector<ll> a;
+        for(int i=1; i*i<=n; i++) {
+            if(n%i == 0) {
+                if(n/i == i) {
+                    a.push_back(i);
+                } else {
+                    a.push_back(i);
+                    a.push_back(n/i);
+                }
+            }
         }
-        ll sum2 = 0;
-        for(int i=1; i<n; i+=2) {
-            if(a[i] >= 0) sum2 += a[i];
+        sort(all(a));
+        ll theOne = 1;
+        while(a[theOne-1] == theOne) theOne++;
+        string str;
+        for(int i='a', j = 0; i<='z' && j < theOne; i++, j++) {
+            str.push_back((char)(i));
         }
-        cout << max(mx,max(sum1,sum2)) << endl;
+        ll d = n/theOne;
+        ll r = n%theOne, i = 0;
+        while(d--) {
+            cout << str;
+        }
+        while(r--) {
+            cout << str[i++];
+        }
+        cout << endl;
         return;
 }
 
