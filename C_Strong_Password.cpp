@@ -40,19 +40,39 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+
+
+ll CalNext(char x, ll pre, vector<vector<ll> >& charPos) {
+        ll it = lower_bound(all(charPos[x-'0']),pre+1)-charPos[x-'0'].begin();
+        return (it == charPos[x-'0'].size()) ? -1 : charPos[x-'0'][it];
+}
+
 void solve()
 {
-        ll xa , xb , xc , ya, yb, yc;
-        cin >>      xa >> ya     >> xb >> yb     >> xc >> yc;
-        
-        ll ans = 0;
-        ll ab = abs(xa-xb)+abs(ya-yb);
-        ll ac = abs(xa-xc)+abs(ya-yc);
-        ll bc = abs(xc-xb)+abs(yc-yb);
-
-        ans = (ab+ac-bc)/2+1;
-
-        cout << ans << endl;
+        string a; cin >> a;
+        ll n = a.size();
+        vector< vector<ll> > charPos(10);
+        for(int i=0; i<n; i++) {
+            charPos[a[i]-'0'].push_back(i);
+        }
+        ll m = vin();
+        string Ls, Rs;
+        cin >> Ls >> Rs;
+        ll pre = -1;
+        for(int i=0; i<m; i++) {
+            vector<ll> nextPre;
+            for(char ch=Ls[i]; ch<=Rs[i]; ch++) {
+                nextPre.push_back(CalNext(ch,pre,charPos));
+            }
+            sort(all(nextPre));
+            if(nextPre[0] == -1) {
+                cout << "YES" << endl;
+                return;
+            } else {
+                pre = nextPre.back();
+            }
+        }
+        cout << "NO" << endl;
         return;
 }
 
