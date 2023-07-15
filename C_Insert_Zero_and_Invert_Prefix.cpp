@@ -43,17 +43,31 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 void solve()
 {
         ll n = vin();
-        vector<vector<ll> > a(n+1);
+        vector<ll> a(n+1,0);
         for(int i=0; i<n; i++) {
-            ll x = vin() , y = vin();
-            a[x].push_back(y);
+            a[i+1] = vin();
         }
-        ll ans = 0;
-        for(int i=1; i<=n; i++) {
-            sort(rall(a[i]));
-            for(int j=0; j<i && j<a[i].size(); j++) ans += a[i][j];
+        if(a.back()) {
+            cout << "NO" << endl;
+        } else {
+            vector<ll> ans;
+            ll cntOne = 0;
+            bool fg = 0;
+            for(int i=n; i>0; i--) {
+                if(a[i] == 0 && a[i-1] == 0) {
+                    ans.push_back(0);
+                } else if((a[i] == 0 && a[i-1] == 1) || (a[i] == 1 && a[i-1] == 1)) {
+                    ans.push_back(0);
+                    cntOne++;
+                } else if(a[i] == 1 && a[i-1] == 0) {
+                    ans.push_back(cntOne);
+                    cntOne = 0;
+                }
+            }
+            cout << "YES" << endl;
+            print(ans);
         }
-        cout << ans << endl;
+        
         return;
 }
 
