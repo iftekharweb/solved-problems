@@ -40,35 +40,28 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
-
-
-ll DrillHere(ll id, ll state, vector<vector<ll> >& idx, vector<ll>& a, vector<vector<ll> >& dp)
-{
-        if(id == a.size()) {
-            return 0;
-        }
-        if(dp[id][state] != -1) {
-            return dp[id][state];
-        }
-        ll ans = state+DrillHere(id+1,1,idx,a,dp);
-        auto it = upper_bound(all(idx[a[id]]),id)-idx[a[id]].begin();
-        if(it != idx[a[id]].size()) {
-            ans = min(ans, DrillHere(idx[a[id]][it],0,idx,a,dp));
-        }
-        return dp[id][state] = ans;
-}
-
 void solve()
 {
-        ll  n = vin();
+        ll n = vin() , k = vin() , d = vin() , w = vin();
         vector<ll> a(n);
-        vector<vector<ll> > idx(n+1);
         for(int i=0; i<n; i++) {
             a[i] = vin();
-            idx[a[i]].push_back(i);
         }
-        vector< vector<ll> > dp(n+1, vector<ll>(2,-1));
-        cout << n-DrillHere(0,1,idx,a,dp) << endl;
+        ll suru = 0, vac = 0, ans = 0;
+        for(int i=0; i<n; i++) {
+            vac++;
+            if(vac > k) {
+                ans++;
+                vac = 1;
+                suru = i;
+            }
+            if(a[suru]+w+d<a[i]) {
+                suru = i;
+                vac = 1;
+                ans++;
+            }
+        }
+        cout << ans+1 << endl;
         return;
 }
 
