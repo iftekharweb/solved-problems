@@ -50,14 +50,11 @@ void solve()
             cm[a[i]]++;
         }
         set<ll> st(all(a));
-        //print(st);
         vector<ll> ans(n+1,0);
         for(auto x:st) {
-            //pr(cm[x]);
             for(int i=x; i<=n; i+=x) {
                 ans[i] += cm[x];
             }
-            //print(ans);
         }
         ll mx = *(max_element(all(ans)));
         cout << mx << endl;
