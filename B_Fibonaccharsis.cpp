@@ -34,67 +34,33 @@ const long long MOD = 1e9+7 , N = 2e5+10 , INF = INT_FAST64_MAX;
 const long double PI= 3.14159265358979323846264338327950288;
 
 inline ll vin() {ll x;cin >> x;return x;}
-ll POW(ll a, ll b) {
-    ll res = 1; 
-    while(b){ 
-        if(b&1) {
-            res*=a;
-            --b;
-        } else {
-            a *= a; 
-            b >>= 1;
-        }
-    }
-    return res;
-}
+ll POW(ll a, ll b) {ll res = 1; while(b){ if(b%2) res = (res*a)%MOD; a = (a*a)%MOD; b /= 2;} return res;}
 vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
-ll CalMe(ll mid, ll po, ll n) {
-    ll cnt = 0;
-    for(int j=0; j<=po; j++) {
-        ll x = 1;
-        for(int k = 0; k<j; k++) x *= mid;
-        if(x>n) {
-            return INF;
-        }
-        cnt += x;
-        if(cnt>n) {
-            return INF;
-        }
-    }
-    return cnt<0 ? INF : cnt;
-}
-
 void solve()
 {
-        ll n = vin();
-        for(int i=2; i<64; i++) {
-            ll lo = 2 , hi = 1e9+1, mid;
-            while( hi-lo > 1) {
-                mid = (hi+lo) >> 1;
-                ll cnt = CalMe(mid,i,n);
-                if(cnt == n) {
-                    cout << "YES" << endl;
-                    return;
-                }
-                if(cnt < n) {
-                    lo = mid;
-                } else {
-                    hi = mid-1;
-                }
+        ll n = vin() , k = vin();
+        if(k>29) {
+            cout << 0 << endl;
+            return;
+        }
+        ll ans = 0;
+        for(int i=0; i<=n/2; i++) {
+            ll x = i , y = n-i, cnt = 3;
+            while(y-x<=x) {
+                ll tmp = y-x;
+                y = x;
+                x = tmp;
+                cnt++;
             }
-            ll cntHi = CalMe(hi,i,n);
-            ll cntLo = CalMe(lo,i,n);
-
-            if(cntHi == n || cntLo == n) {
-                cout << "YES" << endl;
-                return;
+            if(cnt>=k) {
+                ans++;
             }
         }
-        cout << "NO" << endl;
+        cout << ans << endl;
         return;
 }
 
