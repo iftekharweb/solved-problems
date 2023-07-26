@@ -40,9 +40,45 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll Cal(ll n) {
+        return ((n*(n+1)) >> 1);
+}
+
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        a[0] = 0;
+        for(int i=0; i<n-1; i++) {
+            a[i+1] = vin();
+        }
+        multiset<ll> st;
+        ll mxSum = (n*(n+1)) >> 1;
+        ll fg = 0;
+        for(int i=n-1; i>0; i--) {
+            st.insert(a[i]-a[i-1]);
+        }
+        vector<ll> nai;
+        for(int i=1; i<=n; i++) {
+            if(st.find(i) != st.end()) {
+                st.erase(st.find(i));
+            } else {
+                nai.push_back(i);
+            }
+        }
+        if(!st.size() && nai.size() == 1 && nai[0]<=n) {
+            cout << "YES" << endl;
+            return;
+        }
+        if(nai.size() != 2 || st.size() != 1) {
+            cout << "NO" << endl;
+        } else {
+            if(*(st.begin()) == nai[0]+nai[1]) {
+                cout << "YES" << endl;
+            } else {
+                cout << "NO" << endl;
+            }
+        }
         return;
 }
 

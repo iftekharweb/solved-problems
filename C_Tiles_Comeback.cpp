@@ -30,7 +30,7 @@ int dy[] = {1,0,-1,0};
 int dxx[] = {0,1,0,-1,1,1,-1,-1};
 int dyy[] = {1,0,-1,0,1,-1,1,-1};
 
-const long long MOD = 1e9+7 , N = 2e5+10 , INF = INT_FAST64_MAX;
+const long long MOD = 1e9+7 , N = 2e5 , INF = INT_FAST64_MAX;
 const long double PI= 3.14159265358979323846264338327950288;
 
 inline ll vin() {ll x;cin >> x;return x;}
@@ -40,9 +40,42 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+
+
 void solve()
 {
-        
+        ll n = vin(), k = vin();
+        map<int,int> cm;
+        vector<ll> a(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            cm[a[i]]++;
+        }
+        if(a[0] == a.back()) {
+            if(cm[a[0]] >=k) {
+                cout << "YES" << endl;
+            } else {
+                cout << "NO" << endl;
+            }
+            return;
+        }
+        ll cnt = 0, it = 0, id = n-1;
+        for(int i=0; i<n && cnt!=k; i++, it++) {
+            if(a[i] == a[0]) {
+                cnt++;
+            }
+        }
+        cnt = 0;
+        for(int i=n-1; i>=it && cnt!=k; i--, id--) {
+            if(a[i] == a[n-1]) {
+                cnt++;
+            }
+        }
+        if(cnt<k) {
+            cout << "NO" << endl;
+        } else {
+            cout << "YES" << endl;
+        }
         return;
 }
 

@@ -40,9 +40,52 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll GoDeep(ll n , vector<vector<ll> >& uv, vector<ll>& vis, vector<ll>& portions, vector<ll>& dp) 
+{
+        vis[n] = 1;
+        dp[n] = portions[n];
+        ll curr = 0;
+        for(auto x:uv[n]) {
+            if(!vis[x]) {
+                curr += GoDeep(x,uv,vis,portions,dp);
+            } else {
+                curr += dp[x];
+            }
+        }
+        if(uv[n].size()) {
+            dp[n] = min(dp[n], (portions[n] ? curr : 0LL));
+        }
+        return dp[n];
+}
+
 void solve()
 {
-        
+        ll n = vin() , k = vin();
+        vector<ll> portions(n+1,0);
+        for(int i=1; i<=n; i++) {
+            portions[i] = vin();
+        }
+        for(int i=0; i<k; i++) {
+            ll x = vin();
+            portions[x] = 0;
+        }
+        vector< vector<ll> > uv(n+1);
+        for(int i=1; i<=n; i++) {
+            ll m = vin();
+            for(int j=0; j<m; j++) {
+                ll x = vin();
+                uv[i].push_back(x);
+            }
+        }
+        vector<ll> vis(n+1,0), dp(n+1,0), ans;
+        for(int i=1; i<=n; i++) {
+            if(!vis[i]) {
+                ans.push_back(GoDeep(i,uv,vis,portions,dp));
+            } else {
+                ans.push_back(dp[i]);
+            }
+        }
+        print(ans);
         return;
 }
 
