@@ -42,101 +42,29 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin(), ans = 0;;
-        vector<ll> a(n), col(n,0), idx;
+        ll n = vin();
+        vector<ll> a(n);
         for(int i=0; i<n; i++) {
             a[i] = vin();
-            if(!a[i]) idx.push_back(i);
         }
-        if(n == 1) {
-            cout << 1 << endl;
-            return;
-        }
+        ll one = 0 ,two = 0, ze = 0, ans = 0;
         for(int i=0; i<n; i++) {
-            if(a[i] == 2 && !col[i]) {
-                ans++;
-                col[i] = 1;
-                a[i] = 0;
-                ll ii = i+1 , jj = i-1;
-                while(1) {
-                    bool fg = 1;
-                    // Go Right
-                    if(ii<n && a[ii]) {
-                        a[ii] = fg = 0;
-                        col[ii] = 1;
-                        ii++;
-                    } else if(ii<n && !a[ii]) {
-                        col[ii] = 1;
-                    }
-
-                    // Go Left
-                    if(jj>=0 && a[jj]) {
-                        a[jj] = fg = 0;
-                        col[jj] = 1; 
-                        jj--;
-                    } else if(jj>=0 && !a[jj]) {
-                        col[jj] = 1;
-                    }
-
-                    // Break Condition
-                    if(fg) {
-                        break;
-                    }
-                }
-            }
-        }
-//print(a); print(col); return;
-        for(int i=0; i<n; i++) {
-            if(a[i] == 1 && !col[i]) {
-                ans++;
-                col[i] = 1;
-                a[i] = 0;
-                ll ii = i+1, jj = i-1;
-                while(1) {
-                    bool fg = 1;
-                    // Go Right
-                    if(ii<n && a[ii]) {
-                        a[ii] = fg = 0;
-                        col[ii] = 1;
-                        ii++;
-                    } 
-                    // Go Left
-                    if(jj>=0 && a[jj]) {
-                        a[jj] = fg = 0;
-                        col[jj] = 1;
-                        jj--;
-                    }
-                    // Break Condition
-                    if(fg) {
-                        if(ii<n && !col[ii]) {
-                            col[ii] = 1;
-                        } else if(jj>=0 && !col[jj]) {
-                            col[jj] = 1;
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-//print(a); print(col);
-        for(int i=n-1; i>=0; i--) {
-            if(a[i] == 1 && !col[i]) {
-                ans++;
-                ll j = i;
-                while(1) {
-                    if(j>=0) col[j] = 1;
-                    if(j<0 || !a[j]) {
-                        break;
-                    }
-                    a[j] = 0;
+            if(!a[i]) {
+                one = two = 0;
+                int j = i-1;
+                while(j>=0 && a[j]) {
+                    a[j] == 1 ? one++ : two++;
                     j--;
                 }
+                if(!ze) {
+                    (one || two) ? ans++ : ze = 1;
+                } else {
+                    two ? ze=0,ans++ : ans++;
+                }
             }
         }
-        
-        for(int i=0; i<n; i++) if(!col[i]) ans++;
+        if(a.back() || ze) ans++;
         cout << ans << endl;
-        
         return;
 }
 
