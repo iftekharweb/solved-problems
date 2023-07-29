@@ -43,86 +43,97 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 void solve()
 {
         ll n = vin(), ans = 0;;
-        vector<ll> a(n), col(n,0);
+        vector<ll> a(n), col(n,0), idx;
         for(int i=0; i<n; i++) {
             a[i] = vin();
+            if(!a[i]) idx.push_back(i);
         }
         if(n == 1) {
             cout << 1 << endl;
             return;
         }
-        for(int i=1; i<n-1; i++) {
-            if(a[i] == 2) {
-                if(!col[i]) ans++;
-                col[i] = col[i-1] = col[i+1] = 1;
-                a[i] = 0;
-            }
-        }
-        if(a[0] == 2) {
-            a[0] = 0;
-            ans++;
-            col[0] = col[1] = 1;
-        }
-        if(a.back() == 2) {
-            a[n-1] = 0;
-            ans++;
-            col[n-1] = col[n-2] = 1;
-        }
         for(int i=0; i<n; i++) {
-            ll j = i;
-            if(i-1 >= 0 && col[i-1] == 1) while(a[j] == 1 && col[j] == 1) {
-                a[j] = 0;
-                if(j+1<n) {
-                    col[++j] = 1;
-                } else {
-                    break;
-                }
-            }
-            j = i;
-            if(i+1 < n && col[i+1] == 1)while(a[j] == 1 && col[j] == 1) {
-                a[j] = 0;
-                if(j-1>=0) {
-                    col[--j] = 1;
-                } else {
-                    break;
+            if(a[i] == 2 && !col[i]) {
+                ans++;
+                col[i] = 1;
+                a[i] = 0;
+                ll ii = i+1 , jj = i-1;
+                while(1) {
+                    bool fg = 1;
+                    // Go Right
+                    if(ii<n && a[ii]) {
+                        a[ii] = fg = 0;
+                        col[ii] = 1;
+                        ii++;
+                    } else if(ii<n && !a[ii]) {
+                        col[ii] = 1;
+                    }
+
+                    // Go Left
+                    if(jj>=0 && a[jj]) {
+                        a[jj] = fg = 0;
+                        col[jj] = 1; 
+                        jj--;
+                    } else if(jj>=0 && !a[jj]) {
+                        col[jj] = 1;
+                    }
+
+                    // Break Condition
+                    if(fg) {
+                        break;
+                    }
                 }
             }
         }
-
-        ll right = 0 , left = 0;
-        for(int i=0; i<n-1; i++) {
-            if(a[i] == 1 && a[i+1] == 0 && col[i+1] == 0) {
-                right++;
+//print(a); print(col); return;
+        for(int i=0; i<n; i++) {
+            if(a[i] == 1 && !col[i]) {
+                ans++;
+                col[i] = 1;
+                a[i] = 0;
+                ll ii = i+1, jj = i-1;
+                while(1) {
+                    bool fg = 1;
+                    // Go Right
+                    if(ii<n && a[ii]) {
+                        a[ii] = fg = 0;
+                        col[ii] = 1;
+                        ii++;
+                    } 
+                    // Go Left
+                    if(jj>=0 && a[jj]) {
+                        a[jj] = fg = 0;
+                        col[jj] = 1;
+                        jj--;
+                    }
+                    // Break Condition
+                    if(fg) {
+                        if(ii<n && !col[ii]) {
+                            col[ii] = 1;
+                        } else if(jj>=0 && !col[jj]) {
+                            col[jj] = 1;
+                        }
+                        break;
+                    }
+                }
             }
-            if(a[i+1] == 1 && a[i] == 0 && col[i] == 0) {
-                left++;
+        }
+//print(a); print(col);
+        for(int i=n-1; i>=0; i--) {
+            if(a[i] == 1 && !col[i]) {
+                ans++;
+                ll j = i;
+                while(1) {
+                    if(j>=0) col[j] = 1;
+                    if(j<0 || !a[j]) {
+                        break;
+                    }
+                    a[j] = 0;
+                    j--;
+                }
             }
         }
         
-        if(right>left) {
-            for(int i=0; i<n; i++) {
-                if(a[i] == 1) {
-                    a[i] = 0;
-                    if(!col[i]) ans++;
-                    col[i] = 1;
-                    if(i+1<n) {
-                        col[i+1] = 1;
-                    }
-                }
-            }
-        } else {
-            for(int i=n-1; i>=0; i--) {
-                if(a[i] == 1) {
-                    a[i] = 0;
-                    if(!col[i]) ans++;
-                    col[i] = 1;
-                    if(i-1>=0) {
-                        col[i-1] = 1;
-                    }
-                }
-            }
-        }
-
         for(int i=0; i<n; i++) if(!col[i]) ans++;
         cout << ans << endl;
         
