@@ -42,26 +42,57 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin(), k = vin();
-        string a;
-        cin >> a;
-        bool is_pal = true;
-        for(int i=0, j=n-1; i<(1+n)/2; i++, j--) {
-            if(a[i]!=a[j]) {
-                is_pal = false;
+        ll n = vin() ;
+        vector<ll> a(n);
+        ll pos = -MOD , neg = MOD, negId , posId;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            if(a[i]<0) {
+                if(a[i]<neg) {
+                    neg = a[i];
+                    negId = i;
+                } 
+            }
+            else if(a[i]>0) {
+                if(a[i]>pos) {
+                    pos = a[i];
+                    posId = i;
+                }
             }
         }
-        if(is_pal) {
-            cout << 1 << endl;
+        if(pos == -MOD) {
+            ll x = a.back();
+            vector<pair<ll,ll> > ans;
+            ll cnt = 0;
+            while(true) {
+                bool fg = 0;
+                for(int i=0; i<n-1; i++) {
+                    if(a[i]>a[i+1]) {
+                        a[i] += neg;
+                        fg = 1;
+                        if(i != negId) {
+                            ans.push_back({i+1,negId+1});
+                        } else {
+                            cnt++;
+                        }
+                    }
+                }
+                if(!fg) {
+                    break;
+                }
+            }
+            while (cnt--) {
+                ans.push_back({negId+1, negId+1});
+            }
+            cout << ans.size() << endl;
+            for(auto x:ans) {
+                cout << x.first << " " << x.second << endl;
+            }
             return;
         }
-        if(k) {
-            cout << 2 << endl;
-            return;
-        }
-        cout << 1 << endl;
         return;
 }
+
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);

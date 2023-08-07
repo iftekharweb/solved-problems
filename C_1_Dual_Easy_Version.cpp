@@ -42,26 +42,59 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin(), k = vin();
-        string a;
-        cin >> a;
-        bool is_pal = true;
-        for(int i=0, j=n-1; i<(1+n)/2; i++, j--) {
-            if(a[i]!=a[j]) {
-                is_pal = false;
+        ll n = vin();
+        vector<ll> a(n);
+        ll mi = MOD , mx = -MOD, miId, mxId;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            if(a[i]<mi) {
+                mi = a[i];
+                miId = i;
+            }
+            if(a[i]>mx) {
+                mx = a[i];
+                mxId = i;
             }
         }
-        if(is_pal) {
-            cout << 1 << endl;
+        if(mx == 0 && mi == 0) {
+            cout << 0 << endl;
             return;
         }
-        if(k) {
-            cout << 2 << endl;
-            return;
+        vector<pair<ll,ll> > ans;
+        if(abs(mx-0)>=abs(mi-0) && mx>=0) {
+            for(int i=0; i<n; i++) {
+                if(i != mxId) {
+                    a[i] += mx;
+                    ans.push_back({i,mxId});
+                }
+            }
+            ll x = a[0];
+            for(int i=1; i<n; i++) {
+                a[i] += x;
+                x = a[i];
+                ans.push_back({i,i-1});
+            }
+        } else {
+            for(int i=0; i<n; i++) {
+                if(i != miId) {
+                    a[i] += mi;
+                    ans.push_back({i,miId});
+                }
+            }
+            ll x = a.back();
+            for(int i=n-2; i>=0; i--) {
+                a[i] += x;
+                x = a[i];
+                ans.push_back({i,i+1});
+            }
         }
-        cout << 1 << endl;
+        cout << ans.size() << endl;
+        for(auto x:ans) {
+            cout << x.first+1 << " " << x.second+1 << endl;
+        }
         return;
 }
+
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);

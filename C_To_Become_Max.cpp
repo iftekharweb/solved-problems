@@ -40,28 +40,69 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
-void solve()
-{
-        ll n = vin(), k = vin();
-        string a;
-        cin >> a;
-        bool is_pal = true;
-        for(int i=0, j=n-1; i<(1+n)/2; i++, j--) {
-            if(a[i]!=a[j]) {
-                is_pal = false;
+
+ll CheckIt(ll l , ll r, vector<ll>& Pre, vector<ll>& a, ll n, ll k) {
+        pr(l); pr(r);
+        ll lo = l , hi = r-1, mid, mx = a[r];
+        while(hi-lo>1) {
+            mid = (hi+lo) >> 1;
+            ll d = Pre[r]-(mid ? Pre[mid-1] : 0LL);
+            ll dis = r-mid+1;
+            ll need = dis*mx-d;
+            need += (dis*(dis-1))/2;
+            if(need<=k) {
+                hi = mid;
+            } else {
+                lo = mid+1;
             }
         }
-        if(is_pal) {
-            cout << 1 << endl;
-            return;
+        pr(lo); pr(hi);
+        ll d = Pre[r]-(lo ? Pre[lo-1] : 0LL);
+        ll dis = r-lo+1;
+        ll need = dis*mx-d;
+        need += (dis*(dis-1))/2;
+        pr(need);
+        if(need<=k) {
+            return mx+dis-1;
         }
-        if(k) {
-            cout << 2 << endl;
-            return;
+        d = Pre[r]-(hi ? Pre[hi-1] : 0LL);
+        dis = r-hi+1;
+        need = dis*mx-d;
+        need += (dis*(dis-1))/2;
+        if(need<=k) {
+            return mx+dis-1;
         }
-        cout << 1 << endl;
+        return mx;
+}
+
+void solve()
+{
+        ll n = vin() , k = vin();
+        vector<ll> a(n), Pre(n,0);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        for(int i=0; i<n; i++) {
+            !i ? Pre[i] = a[i] : Pre[i] = Pre[i-1]+a[i];
+        }
+        ll mx = a.back(), r = n-1, l = n-1, ans = a.back();
+        for(int i=n-1; i>=0; i--) {
+            if(a[i]>mx) {
+                l = i+1;
+                if(l != r) {
+                    ans = max(CheckIt(l,r,Pre,a,n,k),ans);
+                }
+                
+                mx = a[i];
+                r = i;
+                ans = max(ans,mx);
+            }
+        }
+        if(r) ans = max(CheckIt(0,r,Pre,a,n,k),ans);
+        cout << ans << endl;
         return;
 }
+
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);

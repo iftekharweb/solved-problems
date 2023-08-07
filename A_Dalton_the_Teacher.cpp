@@ -42,26 +42,21 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin(), k = vin();
-        string a;
-        cin >> a;
-        bool is_pal = true;
-        for(int i=0, j=n-1; i<(1+n)/2; i++, j--) {
-            if(a[i]!=a[j]) {
-                is_pal = false;
+        ll n = vin();
+        vector<ll> a(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        ll ans = 0;
+        for(int i=0; i<n; i++) {
+            if(a[i] == i+1) {
+                ans++;
             }
         }
-        if(is_pal) {
-            cout << 1 << endl;
-            return;
-        }
-        if(k) {
-            cout << 2 << endl;
-            return;
-        }
-        cout << 1 << endl;
+        cout << (ans+1)/2 << endl;
         return;
 }
+
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
