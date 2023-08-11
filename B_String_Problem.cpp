@@ -22,6 +22,14 @@ int main() {
         return 0;
     } 
 
+    for (int k = 0; k < 26; ++k) {
+        for (int i = 0; i < 26; ++i) {
+            for (int j = 0; j < 26; ++j) {
+                G[i][j] = min(G[i][j], G[i][k] + G[k][j]);
+            }
+        }
+    }
+
     int ans = 0;
     string outStr = "";
     for (int i = 0; i < s.size(); ++i) {
@@ -44,5 +52,7 @@ int main() {
         ans += relax;
         outStr += ch;
     }
+    cout << ans << endl;
+    cout << outStr << endl;
     return 0;
 }
