@@ -42,7 +42,22 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        vector<string> a(10);
+        vector<ll> p = {1,2,3,4,5};
+        for(int i=0; i<10; i++) {
+            cin >> a[i];
+        }
+        ll ans = 0;
+        for(int i=0; i<10; i++) {
+            for(int j=0; j<10; j++) {
+                if(a[i][j] == 'X') {
+                    ll x = min(i+1,j+1);
+                    x = min(x,(ll)min(10-i,10-j));
+                    ans += p[x-1];
+                }
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

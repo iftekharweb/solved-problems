@@ -42,7 +42,26 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            if(i%2) a[i] *= (-1LL);
+        }
+        map<ll,ll> cm; 
+        ll sum = 0;
+        set<ll> st;
+        for(int i=0; i<n; i++) {
+            sum += a[i];
+            if(st.find(sum) != st.end() || sum == 0) {
+                cout << "YES" << endl;
+                return;
+            }
+            st.insert(sum);
+        }
+        if(sum == 0) {
+            cout << "YES" << endl;
+        } else  cout << "NO" << endl;
         return;
 }
 
@@ -52,7 +71,7 @@ int main()
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
-          //  cout << "Case " << ++CNT << ": ";
+            // cout << "Case " << ++CNT << ": ";
             solve();
         }
         return 0;

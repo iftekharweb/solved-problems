@@ -42,7 +42,17 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        ll sum = 0;
+        for(int i=0; i<n; i++) {
+            ll x; sum += (x = vin());
+        }
+        ll p = sqrt(sum);
+        if(p*p == sum) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
         return;
 }
 

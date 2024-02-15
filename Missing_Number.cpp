@@ -42,7 +42,12 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), sum = 0;
+        for(int i=0; i<n-1; i++) {
+            ll x = vin();
+            sum += x;
+        }
+        cout << (n*(n+1))/2 - sum << endl;
         return;
 }
 
@@ -50,7 +55,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

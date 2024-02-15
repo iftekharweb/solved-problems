@@ -42,7 +42,41 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        map<ll,ll> cm;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            cm[a[i]]++;
+        }
+        if(a.size() == 1) {
+            if(a[0] == 1) {
+                cout << "YES" << endl;
+            } else {
+                cout << "NO" << endl;
+            }
+            return;
+        }
+        set<ll> st(all(a));
+        ll x = a[0];
+        vector<ll> b(all(st));
+        if(b.size() == 1 && b[0] != cm[b[0]]) {
+            cout << "NO" << endl;
+            return;
+        }
+        if(b.size() == 1 && b[0] == cm[b[0]]) {
+            cout << "YES" << endl;
+            return;
+        }
+        reverse(all(b));
+        //print(b);
+        for(int i=0, j=(int)(b.size())-1; i<j; i++,j--) {
+            if(b[i]-b[i+1] != cm[b[j]]) {
+                cout << "NO" << endl;
+                return;
+            }
+        }
+        cout << "YES" << endl;
         return;
 }
 

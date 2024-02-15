@@ -42,7 +42,27 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), x = vin(), y = vin();
+        vector<ll> a(n);
+        unordered_map<ll,set<ll> > cmx, cmy;
+        map<pair<ll,ll>,ll> cm;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            ll p = a[i]%x, q = a[i]%y;
+            cmx[p].insert(i);
+            ll nP = (x-p)%x;
+            cm[{nP,q}]++;
+            cmy[a[i]%y].insert(i);
+        }
+        ll ans = 0;
+        for(auto xxx:cm) {
+            for(auto x:cmx[xxx.first.first]) {
+                if(cmy[xxx.first.second].find(x) != cmy[xxx.first.second].end()) {
+                    ans+=xxx.second;
+                }
+            }
+        }
+        cout << ans/2 << endl;
         return;
 }
 

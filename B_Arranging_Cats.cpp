@@ -42,7 +42,34 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        string a , b;
+        cin >> a >> b;
+        set<ll> st;
+        for(int i=0; i<n; i++) {
+            if(a[i] == '1') st.insert(i);
+        }
+        for(int i=0; i<n; i++) {
+            if(a[i] == b[i]) {
+                if(a[i] == '1' && b[i] == '1') {
+                    st.erase(st.find(i));
+                }
+            }
+        }
+        ll cnt = 0;
+        for(int i=0; i<n; i++) {
+            if(a[i] != b[i]) {
+                if(b[i] == '1' && st.size()) {
+                    cnt++;
+                    swap(a[i],a[(*(st.begin()))]);
+                    st.erase(st.begin());
+                }
+            }
+        }
+        for(int i=0; i<n; i++) {
+            if(b[i] != a[i]) cnt++;
+        }
+        cout << cnt << endl;
         return;
 }
 

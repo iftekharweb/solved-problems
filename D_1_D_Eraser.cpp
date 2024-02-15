@@ -42,7 +42,36 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin() , k = vin();
+        string a;
+        cin >> a;
+        vector<ll> bidx;
+        for(int i=0; i<n; i++) {
+            if(a[i] == 'B') {
+                bidx.push_back(i);
+            }
+        }
+        if(!bidx.size()) {
+            cout << 0 << endl;
+            return;
+        }
+        ll i = bidx[0], lr = 0;
+        while(i<n) {
+            lr++;
+            ll it = lower_bound(all(bidx), i+k)-bidx.begin();
+            if(it == bidx.size()) break;
+            i = bidx[it];
+        }
+        ll rl = 0;
+        i = bidx.back();
+        while(i>=0) {
+            rl++;
+            ll it = upper_bound(all(bidx), i-k)-bidx.begin();
+            it--;
+            if(it<0) break;
+            i = bidx[it];
+        }
+        cout << min(rl,lr) << endl;
         return;
 }
 

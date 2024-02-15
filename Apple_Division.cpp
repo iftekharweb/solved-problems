@@ -42,7 +42,21 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        for(int i=0; i<n ; i++) {
+            a[i] = vin();
+        }
+        ll x = (1<<n), ans = MOD*MOD;
+        for(int i=0; i<x; i++) {
+            bitset<20> bit = i;
+            ll g1 = 0 , g2 = 0;
+            for(int i=0; i<n; i++) {
+                (bit[i]) ? g1 += a[i] : g2 += a[i];
+            }
+            ans = min(abs(g1-g2), ans);
+        }
+        cout << ans << endl;
         return;
 }
 
@@ -50,7 +64,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

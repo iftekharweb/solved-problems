@@ -42,7 +42,20 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = 4;
+        vector<pair<ll,ll> > vp;
+        for(int i=0; i<n; i++) {
+            ll x = vin() , y = vin();
+            vp.push_back({x,y});
+        }
+        sort(all(vp));
+        if(vp[0].first == vp[1].first) {
+            ll x = max(vp[0].second, vp[1].second)-min(vp[0].second, vp[1].second);
+            cout << x*x << endl;
+        } else {
+            ll x = max(vp[2].second, vp[3].second)-min(vp[2].second, vp[3].second);
+            cout << x*x << endl;
+        }
         return;
 }
 

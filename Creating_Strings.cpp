@@ -40,9 +40,30 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+void permute(string& a, int l, int r, set<string>& ans) { 
+    if (l == r) {
+        ans.insert(a);
+    }
+    else { 
+        for (int i = l; i <= r; i++) { 
+            swap(a[l], a[i]); 
+            permute(a, l + 1, r, ans); 
+            swap(a[l], a[i]); 
+        } 
+    } 
+} 
+
 void solve()
 {
-        
+        string a;
+        cin >> a;
+        int n = a.size();
+        set<string> ans;
+        permute(a,0,n-1, ans);
+        cout << ans.size() << endl;
+        for(auto x:ans) {
+            cout << x << endl;
+        } 
         return;
 }
 
@@ -50,7 +71,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

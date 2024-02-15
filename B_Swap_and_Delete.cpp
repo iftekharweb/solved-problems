@@ -42,7 +42,26 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        string a ; cin >> a;
+        ll n = a.size();
+        int ze = 0, on = 0; 
+        for(int i=0; i<n; i++) {
+            if(a[i] == '1') on++;
+            else ze++;
+        }
+        if( ze == on) {
+            cout << 0 << endl;
+        } else {
+            ll x = min(on,ze);
+            ll ans = n;
+            for(int i=0; i<n; i++) {
+                if(a[i] == '1' && ze) ze--, ans--;
+                else if(a[i] == '0' && on) on--, ans--;
+                else break;
+            }
+            cout << ans << endl;
+
+        }
         return;
 }
 

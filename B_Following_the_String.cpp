@@ -42,7 +42,20 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), cnt(26,0);
+        for(int i=0; i<n; i++) cin >> a[i];
+        string ans;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<26; j++) {
+                if(cnt[j] == a[i]) {
+                    ans.push_back((char)('a'+j));
+                    cnt[j]++;
+                    break;
+                }
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

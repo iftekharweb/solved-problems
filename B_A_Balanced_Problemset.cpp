@@ -42,7 +42,15 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll x = vin(), n = vin();
+        ll ans = 0;
+        for(ll i=1; i*i<=x; i++) {
+            if(x%i == 0) {
+                if(x/i>=n) ans = max(ans,i);
+                if(i>=n) ans = max(ans,x/i);
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

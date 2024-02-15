@@ -40,9 +40,47 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll maxSubArraySum(vector<ll> &a, int size)
+{
+    ll max_so_far = -1000000000000000, max_ending_here = 0;
+ 
+    for (int i = 0; i < size; i++) {
+        max_ending_here = max_ending_here + a[i];
+        if (max_so_far < max_ending_here)
+            max_so_far = max_ending_here;
+ 
+        if (max_ending_here < 0)
+            max_ending_here = 0;
+    }
+    return max_so_far;
+}
+
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        vector<vector<ll> > cutter;
+        vector<ll> tmp;
+        auto x = (a[0]&1LL)^1LL;
+        for(int i=0; i<n; i++) {
+            if((a[i]&1LL) != x) {
+                tmp.push_back(a[i]);
+                x ^= 1LL;
+            } else {
+                cutter.push_back(tmp);
+                tmp.clear();
+                tmp.push_back(a[i]);
+            }
+        }
+        cutter.push_back(tmp);
+        ll ans = -1000000000000000;
+        for(auto &x:cutter) {
+            ans = max(ans,maxSubArraySum(x,x.size()));
+        }
+        cout << ans << endl;
         return;
 }
 

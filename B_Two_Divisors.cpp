@@ -42,7 +42,11 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll a = vin() , b = vin();
+        if(a>b) swap(a,b);
+        ll ans = LCM(a,b);
+        if(ans == b) ans *= b/a ;
+        cout << ans << endl;
         return;
 }
 

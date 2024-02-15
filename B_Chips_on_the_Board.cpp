@@ -42,7 +42,17 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), b(n);
+        for(auto &x:a) x = vin();
+        for(auto &x:b) x = vin();
+        sort(all(a));
+        sort(all(b));
+        ll ans = 0, anns = 0;
+        for(auto x:a) ans += x+b[0];
+        for(auto x:b) anns += x+a[0];
+        ans = min(ans, anns);
+        cout << ans << endl;
         return;
 }
 

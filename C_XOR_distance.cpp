@@ -42,7 +42,42 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll a = vin(), b = vin(), r = vin();
+        bitset<66> aBit = a, bBit = b, rBit = r, ans = 0LL;
+        if(!a && !b) {
+            cout << 0 << endl;
+            return;
+        } if(a == b) {
+            cout << 0 << endl;
+            return;
+        }
+        if(a<b) swap(a,b);
+        ll lastBit = -1;
+        for(int i=65; i>=0 && (!aBit[i] && !bBit[i] ); i--) {
+            lastBit = i;
+        }
+        for(int i=0; i<=lastBit; i++) {
+            ll p = 1;
+            p <<= i;
+            if(p>r) break;
+            if(aBit[i] && bBit[i]) {
+                ans[i] = 1;
+            }
+        }
+        for(int i=0; i<=lastBit; i++) {
+            ll p = 1;
+            p <<= i;
+            if(p>r) break;
+            if(aBit[i] && bBit[i]) {
+                ans[i] = 1;
+            } else if(aBit[i] && !bBit[i]) {
+                ans[i] = 1;
+            }
+        }
+        ll z = ans.to_ullong();
+        pr(z);
+        ll f = abs((a^z)-(b^z));
+        cout << f << endl; 
         return;
 }
 

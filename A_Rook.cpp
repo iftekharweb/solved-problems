@@ -42,7 +42,24 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        string a = "12345678", b = "abcdefgh";
+        set<string> ans;
+        string x;
+        cin >> x;
+        for(int i=0; i<8; i++) {
+            string p = "";
+            p += x[0]; p += a[i];
+            ans.insert(p);
+        }
+        for(int i=0; i<8; i++) {
+            string p = "";
+            p += b[i]; p += x[1];
+            ans.insert(p);
+        }
+        ans.erase(ans.find(x));
+        for(auto tt:ans) {
+            cout << tt << endl;
+        }
         return;
 }
 

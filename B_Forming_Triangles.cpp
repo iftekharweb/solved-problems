@@ -40,9 +40,39 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll nCr(ll n, ll r) {
+    ld sum = 1;
+    for(int i = 1; i <= r; i++){
+        sum = sum * (n - r + i) / i;
+    }
+    return (ll)sum;
+}
+
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), cm(n+1);
+        set<ll> st;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            cm[a[i]]++;
+            st.insert(a[i]);
+        }
+        sort(all(a));
+        vector<ll> cng(all(st));
+        ll ans = 0;
+        for(int i=0; i<cng.size(); i++) {
+            ll x = cng[i];
+            
+            if(cm[x]>2) {
+                ans += nCr(cm[x],3);
+            }
+            if(cm[x]>1) {
+                ll it = lower_bound(all(a),x)-a.begin();
+                ans += nCr(cm[x],2)*(it);
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

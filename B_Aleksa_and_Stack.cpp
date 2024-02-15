@@ -42,14 +42,23 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n,0);
+        ll x = 3;
+        for(int i=0; i<n; i+=2) {
+            a[i] = x++;
+            if(i<n-1) a[i+1] = x++;
+            x++;
+        }
+        if(!a.back()) a[n-1] = x;
+        print(a);
         return;
 }
 
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
-
+        
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";

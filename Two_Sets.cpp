@@ -42,7 +42,42 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        ll sum = (n*(n+1))/2;
+        if(sum%2) {
+            cout << "NO" << endl;
+        } else {
+            cout << "YES" << endl;
+            vector<ll> set1, set2;
+            if(n%4 == 0) {
+                for(int i=1; i<=n-3; i+=4) {
+                    set1.push_back(i);
+                    set1.push_back(i+3);
+                    set2.push_back(i+1);
+                    set2.push_back(i+2);
+                }
+                cout << set1.size() << endl;
+                print(set1);
+                cout << set2.size() << endl;
+                print(set2);
+            } else if(n%4 == 3) {
+                set1.push_back(1);
+                set1.push_back(2);
+                set2.push_back(3);
+                for(int i=4; i<=n-3; i+=4) {
+                    set1.push_back(i);
+                    set1.push_back(i+3);
+                    set2.push_back(i+1);
+                    set2.push_back(i+2);
+                }
+                cout << set1.size() << endl;
+                print(set1);
+                cout << set2.size() << endl;
+                print(set2);
+            } else {
+                cout << "NO" << endl;
+            }
+        }
         return;
 }
 
@@ -50,7 +85,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

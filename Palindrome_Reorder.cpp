@@ -42,7 +42,51 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        string a;
+        cin >> a;
+        ll n = a.size(), odd_i = -1;
+        vector<ll> cnt(26,0);
+        for(auto x:a) cnt[x-'A']++;
+        ll odds = 0;
+        for(int i=0; i<26; i++) {
+            if(cnt[i]%2) odds++, odd_i = i;
+        }
+        if(n%2 == 0 && odds) {
+            cout << "NO SOLUTION" << endl;
+            return;
+        } 
+        if(n%2 && odds!=1) {
+            cout << "NO SOLUTION" << endl;
+            return;
+        }
+        string halfAns = "";
+        if(n%2 == 0) {
+            for(int i=0; i<26; i++) {
+                cnt[i] /= 2;
+                while(cnt[i]--) {
+                    halfAns += (char)(i+'A');
+                }
+            }
+            cout << halfAns;
+            reverse(all(halfAns));
+            cout << halfAns << endl;
+        } else {
+            for(int i=0; i<26; i++) {
+                if(i == odd_i) continue;
+                cnt[i] /= 2;
+                while(cnt[i]--) {
+                    halfAns += (char)(i+'A');
+                }
+            }
+            cnt[odd_i] /= 2;
+            while(cnt[odd_i]--) {
+                halfAns += (char)(odd_i+'A');
+            }
+            cout << halfAns;
+            halfAns += (char)(odd_i+'A');
+            reverse(all(halfAns));
+            cout << halfAns << endl;
+        }
         return;
 }
 
@@ -50,7 +94,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

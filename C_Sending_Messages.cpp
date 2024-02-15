@@ -42,7 +42,24 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), f = vin(), aa = vin() , bb = vin();
+        vector<ll> a(n);
+        for(auto &x:a) x = vin();
+        ll suru = 0, loss = 0;
+        for(int i=0; i<n; i++) {
+            ll d = a[i]-suru;
+            if(d*aa<=bb) {
+                f -= d*aa;
+            } else {
+                f -= bb;
+            }
+            suru = a[i];
+            if(f<=0) {
+                cout << "NO" << endl;
+                return;
+            }
+        }
+        cout << "YES" << endl;
         return;
 }
 

@@ -42,7 +42,24 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        vector<bitset<32> > bit(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            bit[i] = a[i];
+        }
+        //return;
+        bitset<32> ans = 0;
+        for(int i=1; i<n-1; i++) {
+            for(int j=31; j>=0; j--) {
+                if(bit[i][j] != bit[i-1][j] && bit[i-1][j] == bit[i+1][j]) {
+                    ans[j] = 1;
+                }
+            }
+        }
+        ll x = ans.to_ulong();
+        cout << x << endl;
         return;
 }
 

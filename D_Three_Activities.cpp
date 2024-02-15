@@ -42,7 +42,38 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), b(n), c(n);
+        vector<pair<ll,ll> > aa(n), bb(n), cc(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            aa[i] = {a[i],i};
+        }
+        for(int i=0; i<n; i++) {
+            b[i] = vin();
+            bb[i] = {b[i],i};
+        }
+        for(int i=0; i<n; i++) {
+            c[i] = vin();
+            cc[i] = {c[i],i};
+        }
+        sort(rall(aa));
+        sort(rall(bb));
+        sort(rall(cc));
+        ll mx = -1;
+        for(int i=0; i<3; i++) {
+            pair<ll,ll> x = aa[i];
+            for(int j=0; j<3; j++) {
+                pair<ll,ll> y = bb[j];
+                for(int k=0; k<3; k++) {
+                    pair<ll,ll> z = cc[k];
+                    if(x.second != y.second && x.second != z.second && y.second != z.second) {
+                        mx = max(mx, x.first+y.first+z.first);
+                    }
+                }
+            }
+        }
+        cout << mx << endl;
         return;
 }
 

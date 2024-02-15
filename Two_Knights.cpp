@@ -40,9 +40,23 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll LeGhoraMar(ll n) 
+{
+    if(n == 1) return 0;
+    if(n == 2) return 6;
+    if(n == 3) return 28;
+    if(n == 4) return 96;
+    ll fullMoves = max(0LL,n-4);
+    ll ans = ((fullMoves*fullMoves)*(fullMoves*fullMoves-9))/2LL;
+    
+}
+
 void solve()
 {
-        
+        ll n = vin();
+        for(int i=1; i<=n; i++) {
+
+        }
         return;
 }
 
@@ -50,7 +64,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  cin >> T;
+        int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

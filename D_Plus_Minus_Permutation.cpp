@@ -42,7 +42,15 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), x = vin() , y = vin();
+        ll gcd = __gcd(x,y);
+        if(gcd == 1) {
+            ll dLCM = n/LCM(x,y);
+            ll dx = n/x-dLCM;
+            ll dy = n/y-dLCM;
+            pr(dx); pr(dy);
+            cout << (n*(n+1))/2-((n-dx)*(n-dx+1))/2+(dy*(dy+1))/2 << endl;
+        }
         return;
 }
 

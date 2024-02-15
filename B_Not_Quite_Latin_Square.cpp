@@ -40,9 +40,28 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+string ok(string &a, string &b, string &c) {
+    if(a[0] == '?') {
+        return a;
+    } else if(b[0] == '?') {
+        return b;
+    } else {
+        return c;
+    }
+}
+
 void solve()
 {
-        
+        string a , b , c;
+        cin >> a;
+        cin >> b; 
+        cin >> c;
+        sort(all(a));
+        sort(all(b));
+        sort(all(c));
+        string x = ok(a,b,c);
+        ll s = 'A'+'B'+'C';
+        cout << (char)(s-x[1]-x[2]) << endl;
         return;
 }
 

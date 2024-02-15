@@ -42,7 +42,30 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        for(auto &x:a) {
+            cin >> x;
+        }
+        for(int i=2; i<=100; i++) {
+            set<ll> st;
+            for(auto x:a) st.insert(x%i);
+            if(st.size() == 2) {
+                cout << i << endl;
+                return;
+            }
+        }
+        // vector<ll> diff;
+        // sort(all(a));
+        // for(int i=0; i<n-1; i++) {
+        //     diff.push_back(a[i+1]-a[i]);
+        // }
+        // //print(diff);
+        // ll gcd = a[0];
+        // for(auto x:a) gcd = __gcd(x,gcd);
+        // cout << " - " << gcd << endl;
+        // for(auto x:a) cout << x%(3) << " "; cout << endl;
+        // cout << gcd+gcd << endl;
         return;
 }
 

@@ -40,9 +40,35 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+bool isPossible(vector<ll>& a, ll n, ll mid) {
+    for(int i=1; i<=mid; i++) {
+        if(a[i]!= MOD && mid-i+mid-i>=a[i]) return false;
+    }
+    return true;
+}
+
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(500+5,MOD);
+        for(int i=0; i<n; i++) {
+            ll  x = vin(), y = vin();
+            a[x] = min(a[x],y);
+        }
+        ll lo = 1, hi = 500, mid;
+        while(hi-lo>1) {
+            mid = (hi+lo) >> 1;
+            if(isPossible(a,n,mid)) {
+                lo = mid;
+            } else {
+                hi = mid-1;
+            }
+        }
+        if(isPossible(a,n,hi)) {
+            cout << hi << endl;
+        } else {
+            cout << lo << endl;
+        }
         return;
 }
 

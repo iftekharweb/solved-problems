@@ -42,7 +42,23 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), b(n,0);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        ll odd = 0, sum = 0;
+        for(int i=0; i<n; i++) {
+            sum += a[i];
+            if(a[i]%2) odd++;
+            if(i>0) {
+                ll bad = (odd/3)+((odd%3 == 1) ? 1 : 0);
+                cout << sum - bad << " ";
+            } else {
+                cout << sum << " ";
+            }
+        }
+        cout << endl;
         return;
 }
 

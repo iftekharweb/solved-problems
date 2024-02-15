@@ -42,7 +42,59 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n, m , k;
+        cin >> n >> m >> k;
+        unordered_map<ll,int,custom_hash> cm, dm;
+        vector<ll> a(n), b(m);
+        for(auto &x:a) x = vin();
+        for(auto &x:b) x = vin();
+        while(a.size() && a.back()>k) a.pop_back();
+        while(b.size() && b.back()>k) b.pop_back();
+        set<ll> aa(all(a)), bb(all(b)); 
+
+        if(bb.size()<k/2 || aa.size()<k/2) {
+            cout << "NO" << endl;
+            return;
+        }
+        ll acnt = 0 , bcnt = 0;
+        vector<ll> ck;
+        for(int i=1; i<=k; i++) {
+            //print(aa); print(bb);
+            auto x = aa.find(i);
+            auto y = bb.find(i);
+            //pr(i);
+            //if(i == 1) break;
+            if(x == aa.end() && y == bb.end()) {
+                cout << "NO" << endl;
+                return;
+            }
+            if(x != aa.end() && y == bb.end()) {
+                acnt++;
+                aa.erase(x);
+            } else if(x == aa.end() && y != bb.end()) {
+                bcnt++;
+                bb.erase(y);
+            } else {
+                ck.push_back(i);
+            }
+            //pr(i);
+        }
+        //print(aa); print(bb); print(ck);
+        //pr(acnt); pr(bcnt);
+        for(auto x:ck) {
+            if(acnt<=bcnt) {
+                acnt++;
+            } else {
+                bcnt++;
+            }
+        }
+        //pr(acnt); pr(bcnt);
+        if(acnt!=k/2 || bcnt != k/2) {
+            cout << "NO" << endl;
+        } else {
+            cout << "YES" << endl;
+        }
+
         return;
 }
 

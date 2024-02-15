@@ -42,7 +42,50 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        string a;
+        cin >> a;
+        ll miss = 0;
+        for(int i=0; i<n/2; i++) {
+            if(a[i] != a[n-1-i]) {
+                miss++;
+            }
+        }
+        for(int i=0; i<=n; i++) {
+            if(i < miss) {
+                cout << '0';
+                continue;
+            } 
+            if( i == miss ) {
+                cout << '1';
+                continue;
+            } 
+            if(n%2 == 0){
+                ll r = n-miss*2;
+                if(i-miss>r) {
+                    cout << '0';
+                } else {
+                    if(r%2 != (i-miss)%2) {
+                        cout << '0';
+                    } else {
+                        cout << '1';
+                    }
+                }
+                continue;
+            } 
+            if(n%2) {
+                ll r = n-miss*2;
+                if(i-miss>r) {
+                    cout << '0';
+                } else {
+                    cout << '1';
+                }
+                continue;
+            } else {
+                cout << '0';
+            }
+        }
+        cout << endl;
         return;
 }
 

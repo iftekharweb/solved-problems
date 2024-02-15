@@ -42,7 +42,53 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        string a, b = ""; cin >> a;
+        ll n = a.size();
+        vector<ll> bid;
+        ll fb = -1 , lb = -1, aaa = 0;
+        for(int i=0; i<n; i++) {
+            if(a[i] == 'B') {
+                bid.push_back(i);
+                if(fb == -1) fb = i;
+                lb = i;
+            } else aaa = 1;
+        }
+        if(fb == -1 || !aaa) {
+            cout << 0 << endl;
+            return;
+        }
+        ll ans = 0;
+        for(int i=0; i<fb; i++) b += a[i];
+        //cout << fb << " " << lb << endl;
+        for(int i=fb; i<lb; i++) {
+            if(a[i] == 'A' && a[i+1] == 'A') {
+                ans++;
+            } else if(i>0 && i<n-1 && a[i-1]=='B' && a[i+1]=='B' && a[i] == 'B'){
+                continue;
+            } else {
+                b += a[i];
+            }
+        }
+        for(int i=lb; i<n; i++) b += a[i];
+        int sz = b.size();
+        for(int i=0; i<sz; i++) {
+            if(b[i] == 'B') {
+                if(fb == -1) fb = i;
+                lb = i;
+            }
+        }
+        if(lb-fb==0) {
+            ans += max(fb,sz-1-fb);
+            cout << ans << endl;
+            return;
+        }
+        sz-1-lb ? ans += sz-1-lb, b[lb] = 'C' : ans += 0;
+        fb ? ans += fb , b[fb] = 'C': ans += 0;
+        for(int i=fb; i<lb; i++) {
+            if(b[i] == 'B' && b[i+1] == 'A') ans++, i++;
+            else if(b[i] == 'A' && b[i+1] == 'B') ans++, i++;
+        }
+        cout << ans << endl;
         return;
 }
 

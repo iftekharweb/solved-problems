@@ -42,7 +42,28 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        map<ll,ll> cm;
+        vector<ll> suru, ses;
+        for(int i=0; i<n; i++) {
+            ll x = vin(), y = vin();
+            cm[x] = y;
+            suru.push_back(x);
+            ses.push_back(y);
+        }
+        sort(all(suru));
+        sort(all(ses));
+        ll ans = 0;
+        for(int i=0; i<n; i++) {
+            ll it = lower_bound(all(ses),cm[suru[i]])-ses.begin();
+            ll ii = upper_bound(all(ses),suru[i])-ses.begin();
+            if(ii<it) {
+                for(int j=ii; j<it; j++) cout << ses[j] << " ";
+                cout << endl;
+                ans += it-ii;
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

@@ -42,7 +42,19 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n),b(n);
+        vector<pair<ll,ll> >vp;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            vp.push_back({a[i],i});
+        }
+        sort(rall(vp));
+        ll x = 1;
+        for(int i=0; i<n; i++) {
+            b[vp[i].second] = x++;
+        }
+        print(b);
         return;
 }
 

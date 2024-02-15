@@ -42,7 +42,23 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll x = vin() , y = vin(), ans = 0;
+        if(x>=y) {
+            if(x%2) {
+                x--;
+                ans = x*x + y;
+            } else {
+                ans = x*x - (y-1);
+            }
+        } else {
+            if(y%2) {
+                ans = y*y - (x-1);
+            } else {
+                y--;
+                ans = y*y + x;
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

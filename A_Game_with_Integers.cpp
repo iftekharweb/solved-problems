@@ -42,7 +42,12 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        if(n%3) {
+            cout << "First" << endl;
+        } else {
+            cout << "Second" << endl;
+        }
         return;
 }
 

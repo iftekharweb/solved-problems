@@ -40,9 +40,33 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+bool TryIt(vector<ll>& a, ll n, ll w, ll mid) {
+    ll x = 0;
+    for(int i=0; i<n; i++) {
+        mid>a[i] ? x += mid-a[i] : x += 0;
+    }
+    return x<=w;
+}
+
 void solve()
 {
-        
+        ll n = vin(), w = vin();
+        vector<ll> a(n);
+        for(auto &x:a) x = vin();
+        ll lo = 1, hi = MOD+MOD, mid;
+        while(hi-lo>1) {
+            mid = (hi+lo)>>1;
+            if(TryIt(a,n,w,mid)) {
+                lo = mid;
+            } else {
+                hi = mid-1;
+            }
+        } 
+        if(TryIt(a,n,w,hi)) {
+            cout << hi << endl;
+        } else {
+            cout << lo << endl;
+        }
         return;
 }
 

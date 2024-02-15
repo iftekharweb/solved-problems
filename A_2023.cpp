@@ -40,15 +40,34 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+set<ll> d;
+
 void solve()
 {
-        
+        ll n = vin(), k = vin();
+        vector<ll> a(n);
+        ll x = 1;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            x *= a[i];
+        }
+        if(2023%x != 0) {
+            cout << "NO" << endl;
+            return;
+        }
+        cout << "YES" << endl;
+        for(int i=0; i<k; i++) {
+            if(!i) cout << 2023/x << " ";
+            else cout << 1 << " ";
+        }
+        cout << endl;
         return;
 }
 
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+        //for(int i=1; i<=2023; i++) if(2023%i == 0) d.insert(i);
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){

@@ -42,7 +42,11 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin() , k = vin();
+        for(int i=n-k; i<=n; i++) cout << i << " ";
+        for(int i=n-k-1; i>=1; i--) cout << i << " ";
+
+        cout << endl;
         return;
 }
 

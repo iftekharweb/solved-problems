@@ -42,7 +42,27 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll>a(n);
+        ll x = 1, z = 0;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            a[i] ? x *= a[i] : z++;
+        }
+        if(z>1) {
+            cout << 0 << endl;
+            return;
+        }
+        if(z) {
+            for(int i=0; i<n; i++) if(!a[i]) a[i] = 1;
+            cout << x << endl;
+            return;
+        }
+        ll mx = -1;
+        for(int i=0; i<n; i++) {
+            mx = max(mx,(x/a[i])*(a[i]+1));
+        }
+        cout << mx << endl;
         return;
 }
 

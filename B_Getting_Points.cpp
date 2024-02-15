@@ -42,7 +42,42 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), p = vin(), l = vin() , t = vin();
+        ll task_day = n/7 + (n%7 ? 1 : 0);
+        pr(task_day);
+        if(task_day*(l+t) >= p) {
+            ll lo = 0, hi = task_day, mid;
+            while(hi-lo>1) {
+                mid = (hi+lo) >> 1LL;
+                if(mid*(l+t)>=p) {
+                    hi = mid;
+                } else {
+                    lo = mid+1;
+                }
+            }
+            if(lo*(l+t)>=p) {
+                pr(lo);
+                cout << n-lo << endl;
+            } else {
+                cout << n-hi << endl;
+            }
+        } else {
+            ll x = task_day * (l+t);
+            ll lo = 0 , hi = n-task_day, mid;
+            while(hi-lo>1) {
+                mid = (hi+lo) >> 1LL;
+                if(x+mid*l>=p) {
+                    hi = mid;
+                } else {
+                    lo = mid+1;
+                }
+            }
+            if(x+lo*l>=p) {
+                cout << n-task_day-lo << endl;
+            } else {
+                cout << n-task_day-hi << endl;
+            }
+        }
         return;
 }
 

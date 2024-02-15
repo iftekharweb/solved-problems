@@ -42,7 +42,18 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), k = vin();
+        vector<ll> a(n);
+        map<ll,ll> mm;
+        for(auto &x:a) {
+            x = vin();
+            mm[x] = 1;
+        }
+        if(mm[k]) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
         return;
 }
 

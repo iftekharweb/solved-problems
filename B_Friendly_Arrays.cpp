@@ -40,9 +40,34 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+int maxSubarrayXOR(vector<ll>& arr, int n, bool op)
+{
+    int mx = INT_MIN;
+    int mi = 10000000;
+    for (int i=0; i<n; i++) {
+        int curr_xor = 0;
+        for (int j=i; j<n; j++) {
+            curr_xor = curr_xor ^ arr[j];
+            if(op) mx = max(mx, curr_xor);
+            else mi = min(mi, curr_xor);
+        }
+    }
+    return mx;
+}
+ 
+
 void solve()
 {
-        
+        ll n = vin() , m = vin();
+        vector<ll> a(n), b(m);
+        ll _or = 0, _xor = 0;
+        for(auto &x:a) x = vin(), _xor |= x;
+        for(auto &x:b) x = vin(), _or |= x;
+        vector<ll> c(all(b));
+        c.push_back(_xor);
+        ll mi = maxSubarrayXOR(c,m+1,0);
+        ll mx = maxSubarrayXOR(c,m+1,1);
+        cout << mi << " " << mx << endl;
         return;
 }
 

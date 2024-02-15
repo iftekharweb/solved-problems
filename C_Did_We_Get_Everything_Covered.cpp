@@ -42,7 +42,36 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), k = vin(), len = vin();
+        string a, sorry = "";
+        cin >> a;
+        set<char> st;
+        ll cnt = 0;
+        for(int i=0; i<len; i++) {
+            st.insert(a[i]);
+            if(st.size() == k) {
+                cnt++;
+                sorry += a[i];
+                st.clear();
+            }
+        }
+        if(cnt>=n) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+            for(char i='a'; i<='z' && k--; i++) {
+                if(st.find(i) == st.end()) {
+                    sorry += i;
+                }
+            } 
+            while (sorry.size() >n){
+                sorry.pop_back();
+            }
+            while(sorry.size()<n) {
+                sorry += (char)('a');
+            }
+            cout << sorry << endl;
+        }
         return;
 }
 

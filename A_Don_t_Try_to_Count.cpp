@@ -42,7 +42,30 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin() ,  m = vin();
+        vector<ll> ops = {n};
+        string a , b;
+        cin >> a >> b;
+        while(a.size() < 100) {
+            a += a;
+            ops.push_back(a.size());
+        }
+        //cout << a << endl;
+        for(int i=0; i<(int)(a.size())-b.size(); i++) {
+            bool fg = 0;
+            for(int j=i; j<i+b.size() && !fg; j++) {
+                if(a[j] != b[j]) {
+                    fg = 1;
+                }
+            }
+            if(!fg) {
+                ll x = i+b.size();
+                ll it = upper_bound(all(ops),x)-ops.begin();
+                cout << it << endl;
+                return;
+            }
+        }
+        cout << -1 << endl;
         return;
 }
 

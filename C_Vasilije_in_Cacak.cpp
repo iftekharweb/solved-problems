@@ -40,20 +40,36 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
-void solve()
+void solve(vector<ll>& a)
 {
-        
+        ll n = vin() , k = vin(), x = vin();
+        ll it = upper_bound(all(a),n)-a.begin();
+        it--;
+        pr(it);
+        if(k>it) {
+            cout << "NO" << endl;
+        } else {
+            cout << "YES" << endl;
+        }
         return;
 }
 
 int main() 
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
-
+        vector<ll> a(N,0);
+        ll sum = 2;
+        a[1] = 1;
+        for(int i=2;i<=200000; i++) {
+            a[i] = a[i-1]+sum++;
+        }
+        // for(int i=1;i<=10; i++) {
+        //     cout << a[i] <<  " ";
+        // } cout << endl;
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
-            solve();
+            solve(a);
         }
         return 0;
 }

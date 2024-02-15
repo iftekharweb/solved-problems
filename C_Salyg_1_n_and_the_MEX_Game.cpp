@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 
 using ll = long long;
 using ld = long double;
@@ -40,9 +42,29 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll CurrMex(set<ll> &st) {
+        ll mx = *(--st.end());
+        ll lo = 0 , hi = mx, mid;
+        while(hi-lo>1) {
+            mid = (hi+lo) >> 1;
+            auto it = st.find(mid);
+        }
+}
+
 void solve()
 {
+        ll n = vin();
+        vector<ll> a(n);
+        set<ll> st;
+        for(auto &x:a) {
+            x = vin();
+            st.insert(x);
+        }
         
+        while(true) {
+            
+
+        }
         return;
 }
 

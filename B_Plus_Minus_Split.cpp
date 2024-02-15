@@ -42,7 +42,18 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        string a;
+        cin >> a;
+        ll sum = 0;
+        for(int i=0; i<n; i++) {
+            if(a[i] == '+') {
+                sum++;
+            } else {
+                sum--;
+            }
+        }
+        cout << abs(sum) << endl;
         return;
 }
 

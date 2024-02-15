@@ -42,7 +42,27 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin(), k = vin() , x = vin();
+        vector<ll> a(n), Prefix(n,0);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            
+            
+        }
+        sort(rall(a));
+        for(int i=0; i<n; i++) {
+            (!i) ? Prefix[i] = a[i] : Prefix[i] = a[i] + Prefix[i-1];
+        }
+        ll ans = -MOD;
+        for(int i=0; i<min(k,n); i++) {
+            ll sum = Prefix[n-1]-Prefix[i];
+            ll bad = Prefix[min(i+x,n-1)]-Prefix[i];
+            ans = max(ans,sum-2*bad);
+            //pr(sum); pr(bad); pr(ans);
+        }
+        //print(Prefix);print(a);
+        ans = max(ans,Prefix[n-1]-2*Prefix[min(x,n)-1]);
+        cout << ans << endl;
         return;
 }
 

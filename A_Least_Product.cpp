@@ -42,7 +42,31 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), N, P;
+        ll neg, pos, zer;
+        neg = pos = zer = 0;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            if(a[i]<0) neg++, N.push_back(i);
+            else if(a[i]>0) pos++, P.push_back(i);
+            else zer++;
+        }
+        if(zer) {
+            cout << 0 << endl;
+            return;
+        }
+        if(neg%2 == 0) {
+            if(neg) {
+                cout << 1 << endl;
+                cout << N.back()+1 << " " << 0 << endl;
+            } else {
+                cout << 1 << endl;
+                cout << P.back()+1 << " " << 0 << endl;
+            }
+            return;
+        }
+        cout << 0 << endl;
         return;
 }
 

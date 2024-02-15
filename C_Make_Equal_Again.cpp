@@ -42,7 +42,35 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        map<ll,ll> cm;
+        deque<ll> Q1, Q2;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            Q1.push_back(a[i]);
+            Q2.push_back(a[i]);
+        }
+        if(a[0] == a.back()) {
+            ll x = a[0];
+            while(Q1.size() && Q1.front() == x) {
+                Q1.pop_front();
+            }
+            while(Q1.size() && Q1.back() == x) {
+                Q1.pop_back();
+            }
+            cout << Q1.size() << endl;
+        } else {
+            ll x = Q1.front();
+            while(Q1.size() && Q1.front() == x) {
+                Q1.pop_front();
+            }
+            x = Q2.back();
+            while(Q2.size() && Q2.back() == x) {
+                Q2.pop_back();
+            }
+            cout << min(Q1.size() , Q2.size()) << endl;
+        }
         return;
 }
 

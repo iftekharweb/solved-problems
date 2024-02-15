@@ -42,7 +42,32 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n);
+        unordered_map<ll,int,custom_hash> cm;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            cm[a[i]]++;
+        }
+        if(cm.size()>2) {
+            cout << "No" << endl;
+        } else if(cm.size() == 1) {
+            cout << "Yes" << endl;
+        } else {
+            ll p = 0, q = 0;
+            for(auto x:cm) {
+                if(!p) {
+                    p = x.second;
+                    continue;
+                } 
+                q = x.second;
+            }
+            if(abs(p-q)<=1) {
+                cout << "Yes" << endl;
+            } else {
+                cout << "No" << endl;
+            }
+        }
         return;
 }
 

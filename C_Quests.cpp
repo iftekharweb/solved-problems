@@ -42,7 +42,28 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin() , k = vin();
+        vector<ll> a(n), b(n), val(n+1);
+        multiset<ll> st;
+        ll sum = 0;
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        for(int i=0; i<n; i++) {
+            b[i] = vin();
+            if(i<k) st.insert(b[i]), sum += a[i];
+        }
+        ll ans = sum, cnt;
+        cnt = max(0LL,k-n);
+        ans = sum + cnt * (*(--st.end()));
+        for(int i=min(k-1,n-1); i>0; i--) {
+            st.erase(st.find(b[i]));
+            ll x = *(--st.end());
+            cnt++;
+            sum -= a[i];
+            ans = max(ans, sum + cnt*x);
+        }
+        cout << ans << endl;
         return;
 }
 

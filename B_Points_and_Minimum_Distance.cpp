@@ -42,7 +42,26 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n+n);
+        vector<pair<ll,ll> > vp;
+        for(int i=0; i<n+n; i++) {
+            a[i] = vin();
+        }
+        sort(all(a));
+        ll ans = 0;
+        for(int i=0; i<n-1; i++) {
+            ans += abs(a[i]-a[i+1]);
+            
+            ans += abs(a[i+n]-a[i+n+1]);
+        }
+        cout << ans << endl;
+        for(int i=0; i<n; i++) {
+            vp.push_back({a[i],a[i+n]});
+        }
+        for(auto x:vp) {
+            cout << x.first << " " << x.second << endl;
+        }
         return;
 }
 

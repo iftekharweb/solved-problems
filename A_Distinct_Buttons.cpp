@@ -42,7 +42,18 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), b(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin(), b[i] = vin();
+        }
+        sort(all(a));
+        sort(all(b));
+        if((a[0] >=0 && a.back() >= 0) || (a[0] <=0 && a.back() <= 0) || (b[0] >=0 && b.back() >= 0) || (b[0] <=0 && b.back() <= 0)) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
         return;
 }
 

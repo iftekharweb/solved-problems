@@ -42,7 +42,24 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        string a;
+        cin >> a;
+        ll cnt;
+        if(a[n-1] == 'a' || a[n-1] == 'e') cnt = 2;
+        else cnt = 3;
+        string ans = "";
+        for(int i=n-1; i>=0; i--) {
+            ans += a[i];
+            cnt--;
+            if(cnt == 0 && i>0) {
+                ans += '.';
+                if(a[i-1] == 'a' || a[i-1] == 'e') cnt = 2;
+                else cnt = 3;
+            }
+        }
+        reverse(all(ans));
+        cout << ans << endl;
         return;
 }
 

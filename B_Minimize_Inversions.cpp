@@ -42,7 +42,25 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        
+        ll n = vin();
+        vector<ll> a(n), b(n), pos(n+1);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+            pos[a[i]] = i;
+        }
+        for(int i=0; i<n; i++) {
+            b[i] = vin();
+        }
+        for(int i=0; i<n; i++) {
+            ll x = pos[i+1];
+            pos[a[i]] = x;
+            if(x == i) continue;
+            swap(a[i],a[x]);
+            swap(b[i],b[x]);
+            //pr(x);
+        }
+        print(a);
+        print(b);
         return;
 }
 
