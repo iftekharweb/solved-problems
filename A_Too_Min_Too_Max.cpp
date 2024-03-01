@@ -42,49 +42,17 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin() , m = vin();
-        vector<ll> dis(4,0);
-        for(int i=0; i<4; i++) {
-            if(!i) {
-                cout << "?" << 1 << " " << 1 << endl;
-                fflush(stdout);
-                dis[0] = vin();
-            } else if(i==1) {
-                cout << "?" << 1+dis[0] << " " << 1 << endl;
-                fflush(stdout);
-                dis[1] = vin();
-
-                if(dis[1]<=dis[0]) {
-                    ll x = 1+dis[0]+dis[1] , y = 1;
-                    cout << "?" << x << " " << y << endl;
-                    fflush(stdout);
-
-                    ll curr = vin();
-                    y += curr;
-                    cout << "?" << x << " " << y << endl;
-                    fflush(stdout);
-
-                    curr = vin();
-                    cout << "!" << x-curr << " " << y << endl;
-                    fflush(stdout);
-                    return;
-                }
-            } else if(i==2) {
-                cout << "?" << 1 << " " << 1+dis[0] << endl;
-                fflush(stdout);
-                dis[2] = vin();
-                cout << "!" << 1+dis[2] << " " << 1+dis[0] << endl;
-                fflush(stdout);
-                return;
-            }
-        }
-
+        ll n = vin();
+        vector<ll> a(n);
+        for(auto &x:a) cin >> x;
+        sort(all(a));
+        cout << abs(a[0]-a[n-1])+abs(a[n-1]-a[1])+abs(a[1]-a[n-2])+abs(a[n-2]-a[0]) << endl;
         return;
 }
 
 int main() 
 {
-        //ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+        ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){

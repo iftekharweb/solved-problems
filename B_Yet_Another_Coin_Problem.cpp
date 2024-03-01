@@ -42,49 +42,53 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin() , m = vin();
-        vector<ll> dis(4,0);
-        for(int i=0; i<4; i++) {
-            if(!i) {
-                cout << "?" << 1 << " " << 1 << endl;
-                fflush(stdout);
-                dis[0] = vin();
-            } else if(i==1) {
-                cout << "?" << 1+dis[0] << " " << 1 << endl;
-                fflush(stdout);
-                dis[1] = vin();
-
-                if(dis[1]<=dis[0]) {
-                    ll x = 1+dis[0]+dis[1] , y = 1;
-                    cout << "?" << x << " " << y << endl;
-                    fflush(stdout);
-
-                    ll curr = vin();
-                    y += curr;
-                    cout << "?" << x << " " << y << endl;
-                    fflush(stdout);
-
-                    curr = vin();
-                    cout << "!" << x-curr << " " << y << endl;
-                    fflush(stdout);
-                    return;
-                }
-            } else if(i==2) {
-                cout << "?" << 1 << " " << 1+dis[0] << endl;
-                fflush(stdout);
-                dis[2] = vin();
-                cout << "!" << 1+dis[2] << " " << 1+dis[0] << endl;
-                fflush(stdout);
-                return;
-            }
+        ll n = vin();
+        map<ll,ll> cm;
+        cm[1] = 1;
+        cm[2] = 2;
+        cm[3] = 1;
+        cm[4] = 2;
+        cm[5] = 3;
+        cm[6] = 1;
+        cm[7] = 2;
+        cm[8] = 3;
+        cm[9] = 2;
+        cm[10] = 1;
+        cm[11] = 2;
+        cm[12] = 2;
+        cm[13] = 2;
+        cm[14] = 3;
+        cm[15] = 1;
+        if(n<15) {
+            cout << cm[n] << endl;
+            return;
         }
-
+        ll d = n/15;
+        if(n%15 == 0) {
+            cout << d << endl;
+            return;
+        }
+        ll ans = d+cm[n-d*15];
+        if(d) {
+            d--;
+            ll tmp = d*15, newAns = d;
+            //pr(n-(tmp+10));
+            //return;
+            //pr(n-(10+tmp));
+            while(n-(tmp)>15) {
+                tmp += 10;
+                newAns++;
+            }
+            //pr(tmp);
+            ans = min(ans, newAns+cm[n-tmp]);
+        }
+        cout << ans << endl;
         return;
 }
 
 int main() 
 {
-        //ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+        ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){

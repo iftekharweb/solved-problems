@@ -46,34 +46,35 @@ void solve()
         vector<ll> dis(4,0);
         for(int i=0; i<4; i++) {
             if(!i) {
-                cout << "?" << 1 << " " << 1 << endl;
+                cout << "? " << 1 << " " << 1 << endl;
                 fflush(stdout);
                 dis[0] = vin();
             } else if(i==1) {
-                cout << "?" << 1+dis[0] << " " << 1 << endl;
+                cout << "? " << 1+dis[0] << " " << 1 << endl;
+                
                 fflush(stdout);
                 dis[1] = vin();
 
                 if(dis[1]<=dis[0]) {
                     ll x = 1+dis[0]+dis[1] , y = 1;
-                    cout << "?" << x << " " << y << endl;
+                    cout << "? " << x << " " << y << endl;
                     fflush(stdout);
 
                     ll curr = vin();
                     y += curr;
-                    cout << "?" << x << " " << y << endl;
+                    cout << "? " << x << " " << y << endl;
                     fflush(stdout);
 
                     curr = vin();
-                    cout << "!" << x-curr << " " << y << endl;
+                    cout << "! " << x-curr << " " << y << endl;
                     fflush(stdout);
                     return;
                 }
             } else if(i==2) {
-                cout << "?" << 1 << " " << 1+dis[0] << endl;
+                cout << "? " << 1 << " " << 1+dis[0] << endl;
                 fflush(stdout);
                 dis[2] = vin();
-                cout << "!" << 1+dis[2] << " " << 1+dis[0] << endl;
+                cout << "! " << 1+dis[2] << " " << 1+dis[0] << endl;
                 fflush(stdout);
                 return;
             }
@@ -84,7 +85,7 @@ void solve()
 
 int main() 
 {
-        //ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+        ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
