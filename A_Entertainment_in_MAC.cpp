@@ -42,48 +42,30 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin() , l = vin();
-        vector<ll> a(n);
-        vector<pair<ll,ll> > b(n);
+        ll n = vin();
+        string a; 
+        cin >> a;
+        string b = a;
+        reverse(all(b));
+        if(a == b) {
+            cout << a << endl;
+            return;
+        }
+        ll ok = 0;
         for(int i=0; i<n; i++) {
-            a[i]= vin();
-            b[i].first = vin();
-            b[i].second = i;
-        }
-        sort(all(b));
-        ll diff = 0, sum = a.back();
-        for(int i=0; i<n-1; i++) {
-            diff += b[i+1].first-b[i].first;
-            sum += a[i];
-        }
-        ll i = 0, j = n-1;
-        while(1) {
-            
-            if(i==j) {
-                if(a[b[i].second]<=l) {
-                    cout << 1 << endl;
-                } else {
-                    cout << 0 << endl;
-                }
-                return;
-            } else {
-                if(diff+sum <= l) {
-                    cout << j-i+1 << endl;
-                    return;
-                }
-                if(a[b[i].second]+b[i].first>a[b[j].second]+b[j].first) {
-                    sum -= a[b[i].second];
-                    diff -= b[i+1].first-b[i].first;
-                    i++;
-                } else {
-                    sum -= a[b[j].second];
-                    diff -= b[j].first-b[j-1].first;
-                    j--;
-                }
+            if(a[i]<b[i]) {
+                ok = 1;
+                break;
+            } else if(b[i]<a[i]) {
+                ok = 2;
+                break;
             }
         }
-        cout << 0 << endl;
-        
+        if(ok == 1) {
+            cout << a << endl;
+        } else {
+            cout << b << a << endl;
+        }
         return;
 }
 

@@ -42,48 +42,37 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        ll n = vin() , l = vin();
+        ll n = vin();
         vector<ll> a(n);
-        vector<pair<ll,ll> > b(n);
+        vector<vector<ll> > id(n+1);
         for(int i=0; i<n; i++) {
-            a[i]= vin();
-            b[i].first = vin();
-            b[i].second = i;
+            a[i] = vin();
+            id[a[i]].push_back(i);
         }
-        sort(all(b));
-        ll diff = 0, sum = a.back();
-        for(int i=0; i<n-1; i++) {
-            diff += b[i+1].first-b[i].first;
-            sum += a[i];
-        }
-        ll i = 0, j = n-1;
-        while(1) {
-            
-            if(i==j) {
-                if(a[b[i].second]<=l) {
-                    cout << 1 << endl;
-                } else {
-                    cout << 0 << endl;
-                }
+        ll left = -1, right = MOD;
+        for(int i=0; i<=n; i++) {
+            if(!id[i].size()) {
+                break;
+            }
+            if(id[i].size() == 1) {
+                cout << -1 << endl;
                 return;
-            } else {
-                if(diff+sum <= l) {
-                    cout << j-i+1 << endl;
-                    return;
-                }
-                if(a[b[i].second]+b[i].first>a[b[j].second]+b[j].first) {
-                    sum -= a[b[i].second];
-                    diff -= b[i+1].first-b[i].first;
-                    i++;
-                } else {
-                    sum -= a[b[j].second];
-                    diff -= b[j].first-b[j-1].first;
-                    j--;
-                }
+            }
+            left = max(id[i][0], left);
+            right = min(id[i].back(), right);
+            if(left>=right) {
+                cout << -1 << endl;
+                return;
             }
         }
-        cout << 0 << endl;
-        
+        cout << 2 << endl;
+        if(left == -1) {
+            cout << 1 << " " << 1 << endl;
+            cout << 2 << " " << n << endl;
+            return;
+        }
+        cout << 1 << " " << left+1 << endl;
+        cout << left+2 << " " << n << endl;
         return;
 }
 

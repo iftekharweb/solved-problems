@@ -56,34 +56,44 @@ void solve()
             diff += b[i+1].first-b[i].first;
             sum += a[i];
         }
-        ll i = 0, j = n-1;
-        while(1) {
-            
-            if(i==j) {
-                if(a[b[i].second]<=l) {
-                    cout << 1 << endl;
+        if(sum + diff <= l) {
+            cout << n << endl;
+            return;
+        }
+        ll ans = -MOD;
+        for(int i=0; i<n; i++) {
+            if(i==n-1) {
+                ans = max(ans, 0LL);
+                break;;
+            }
+            diff -= b[i+1].first-b[i].first;
+            sum -= a[b[i].second];
+            if(sum+diff <= l) {
+                ans = max(ans, n-1-i);
+            } 
+            ll tmpDiff = diff, tmpSum = sum;
+            //pr(diff); pr(i);
+            for(int j=n-1; j>i; j--) {
+                if(i+1 == j) {
+                    if(a[b[j].second] <= l) {
+                        ans = max(ans,1LL);
+                    } else {
+                        ans = max(ans,0LL);
+                    }
                 } else {
-                    cout << 0 << endl;
-                }
-                return;
-            } else {
-                if(diff+sum <= l) {
-                    cout << j-i+1 << endl;
-                    return;
-                }
-                if(a[b[i].second]+b[i].first>a[b[j].second]+b[j].first) {
-                    sum -= a[b[i].second];
-                    diff -= b[i+1].first-b[i].first;
-                    i++;
-                } else {
-                    sum -= a[b[j].second];
-                    diff -= b[j].first-b[j-1].first;
-                    j--;
+                    tmpDiff -= b[j].first-b[j-1].first;
+                    tmpSum -= a[b[j].second];
+                    //pr(tmpDiff); pr(tmpSum); pr(j);
+                    if(tmpDiff+tmpSum <= l) {
+                        ans = max(ans, (ll)j-i-1);
+                        //pr(ans);
+                        //pr(i);pr(j);
+                        //pr(j-i);
+                    }
                 }
             }
         }
-        cout << 0 << endl;
-        
+        cout << ans << endl;
         return;
 }
 

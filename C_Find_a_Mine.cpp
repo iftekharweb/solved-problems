@@ -40,6 +40,12 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+void printF(ll x , ll y) {
+    cout << "! " << x << " " << y << endl;
+    fflush(stdout);
+    return;
+}
+
 void solve()
 {
         ll n = vin() , m = vin();
@@ -49,11 +55,19 @@ void solve()
                 cout << "? " << 1 << " " << 1 << endl;
                 fflush(stdout);
                 dis[0] = vin();
+                if(!dis[0]) {
+                    printF(1, 1);
+                    return;
+                }
             } else if(i==1) {
                 cout << "? " << 1+dis[0] << " " << 1 << endl;
                 
                 fflush(stdout);
                 dis[1] = vin();
+                if(!dis[1]) {
+                    printF(1+dis[0], 1);
+                    return;
+                }
 
                 if(dis[1]<=dis[0]) {
                     ll x = 1+dis[0]+dis[1] , y = 1;
@@ -61,21 +75,29 @@ void solve()
                     fflush(stdout);
 
                     ll curr = vin();
+                    if(!curr) {
+                        printF(x, y);
+                        return;
+                    }
                     y += curr;
                     cout << "? " << x << " " << y << endl;
                     fflush(stdout);
 
                     curr = vin();
-                    cout << "! " << x-curr << " " << y << endl;
-                    fflush(stdout);
+                    if(!curr) {
+                        printF(x, y);
+                        return;
+                    } else {
+                        printF(x,y);
+                        return;
+                    }
                     return;
                 }
             } else if(i==2) {
                 cout << "? " << 1 << " " << 1+dis[0] << endl;
                 fflush(stdout);
                 dis[2] = vin();
-                cout << "! " << 1+dis[2] << " " << 1+dis[0] << endl;
-                fflush(stdout);
+                printF(1+dis[2], 1+dis[0]);
                 return;
             }
         }
@@ -85,7 +107,7 @@ void solve()
 
 int main() 
 {
-        ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+        //ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
         int T = 1, CNT = 0;  cin >> T;
         while(T--){
