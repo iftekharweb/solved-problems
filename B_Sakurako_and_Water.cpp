@@ -40,10 +40,34 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+void dig(ll n, vector<vector<ll> > &a, vector<vector<ll> > &vis, ll & ans, ll i , ll j) {
+    ll mi = MOD;
+    while(i<n && j <n) {
+        vis[i][j] = 1;
+        mi = min(mi,a[i][j]);
+        i++, j++;
+    }
+    ans += abs(min(0LL,mi));
+}
+
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        ll n = vin();
+        vector<vector<ll> > a(n, vector<ll> (n)), vis(n, vector<ll> (n,0));
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                a[i][j] = vin();
+            }
+        }
+        ll ans = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                if(!vis[i][j]) {
+                    dig(n,a,vis,ans,i,j);
+                }
+            }
+        }
+        cout << ans << endl;
         return;
 }
 
@@ -51,7 +75,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

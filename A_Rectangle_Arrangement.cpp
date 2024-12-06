@@ -42,8 +42,23 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        ll n = vin();
+        ll maxRow = 0;
+        vector<ll> maxCol(120+1,0);
+        for(int i=0; i<n; i++) {
+            ll x = vin() , y = vin();
+            maxRow = max(x,maxRow);
+            for(int i=1; i<=x; i++) {
+                maxCol[i] = max(maxCol[i], y);
+            }
+        }
+        ll ans = maxRow + maxRow;
+        ll x = 0;
+        for(int i=1; i<=maxRow; i++) {
+            ans += abs(maxCol[i]-x);
+            x = maxCol[i];
+        }
+        cout << ans+x << endl;
         return;
 }
 
@@ -51,7 +66,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

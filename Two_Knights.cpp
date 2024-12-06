@@ -40,22 +40,11 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
-ll LeGhoraMar(ll n) 
-{
-    if(n == 1) return 0;
-    if(n == 2) return 6;
-    if(n == 3) return 28;
-    if(n == 4) return 96;
-    ll fullMoves = max(0LL,n-4);
-    ll ans = ((fullMoves*fullMoves)*(fullMoves*fullMoves-9))/2LL;
-    
-}
-
-void solve()
+void solve(vector<ll> & res)
 {
         ll n = vin();
         for(int i=1; i<=n; i++) {
-
+            cout << res[i] << endl;
         }
         return;
 }
@@ -64,10 +53,23 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
+        ll n = 10000;
+        vector<ll> res(n+1);
+        for(int i=1; i<=n; i++) {
+            ll total_positions = ((i*i)*(i*i - 1LL))/2LL;
+            if(i-2 <= 0) {
+                res[i] = total_positions;
+            }  else {
+                ll total_2x3 = (i-2LL)*(i-1LL)*2LL;
+                ll total_3x2 = (i-2LL)*(i-1LL)*2LL;
+                res[i] = total_positions - total_2x3 - total_3x2;
+            }
+        }
+
         int T = 1, CNT = 0;  //cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
-            solve();
+            solve(res);
         }
         return 0;
 }

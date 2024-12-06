@@ -40,10 +40,40 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+bool isValid(int x, int y , ll n ,int m) {
+    return x>=0 && y>=0 && x<n && y<m; 
+}
+
+void dfs(vector<string>&a, vector<vector<int> >&vis, int x, int y, int n , int m) {
+    if(vis[x][y] || !isValid(x,y,n,m) || a[x][y] == '#') return;
+    //cout << x << " " << y << endl;
+    vis[x][y] = 1;
+   for(int k=0; k<4; k++) {
+                if(isValid(x+dx[k], y+dy[k],n,m) && !vis[x+dx[k]][y+dy[k]] && a[x+dx[k]][y+dy[k]] != '#') {
+                    dfs(a, vis, x+dx[k], y+dy[k], n, m);
+                }
+            }
+    return;
+}
+
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        int n, m;
+        cin >> n >> m;
+        vector<string> a(n);
+        vector<vector<int> > vis(n, vector<int>(m,0));
+        for(int i=0; i<n; i++) cin >> a[i];
+
+        int ans = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                if(!vis[i][j] && a[i][j] != '#') {
+                    dfs(a,vis,i,j,n,m);
+                    ans++;
+                }
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

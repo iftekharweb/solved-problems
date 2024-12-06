@@ -40,10 +40,37 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+/*
+    x = 2 coins from a and 1 coin from b
+    y = 1 coin from a and 2 coins from b
+
+    which means,
+    a = 2x + y      .........(i)
+    b = x + 2y      .........(ii)
+
+    Now, 
+    2 x (i) => 2a = 4x + 2y     .........(iii)
+
+    (iii) - (ii) => 3x = 2a - b
+    similarly,      3y = 2b - a
+*/
+
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        ll a, b;
+        cin >> a >> b;
+        if(!a && ! b) {
+            cout << "YES" << endl;
+            return;
+        } else if(!a || !b) {
+            cout << "NO" << endl;
+            return;
+        }
+        if((2*a - b) >=0 && (2*b - a) >=0 && (2*a - b)%3 == 0 && (2*b - a)%3 == 0) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
         return;
 }
 
@@ -51,7 +78,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

@@ -42,8 +42,19 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        ll n = vin();
+        vector<ll> a(n);
+        for(int i=0; i<n; i++) {
+            a[i] = vin();
+        }
+        ll curr = a[0], ans = 0;
+        for(int i=1; i<n; i++) {
+            if(a[i]<a[i-1]) {
+                ans += a[i-1]-a[i];
+                a[i] = a[i-1];
+            }
+        }
+        cout << ans << endl;
         return;
 }
 

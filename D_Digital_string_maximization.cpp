@@ -42,8 +42,19 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        string a;
+        cin >> a;
+        for(int i=1; i<a.size(); i++) {
+            for(int j=i-1, k = i; j>=0; j--, k--) {
+                if((int)(a[k]-1)>(int)a[j]) {
+                    a[k]--;
+                    swap(a[k], a[j]);
+                } else {
+                    break;
+                }
+            }
+        }
+        cout << a << endl;
         return;
 }
 
@@ -51,7 +62,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

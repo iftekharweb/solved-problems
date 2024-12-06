@@ -41,9 +41,29 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
 void solve()
-{
-        int a[2];
-        cout << a[3] << endl;
+{   
+    int n, m; cin>> n >> m;
+    int a[n];
+    for(int i=0; i<n; i++)cin>>a[i];
+
+    int l = 1, r = 100000,ans=INT_MAX;
+    while(l<r){
+        int mid = (l+r)/2;
+       int cnt = 0;
+       for(int i=0; i<n; i++){
+         cnt+=mid/a[i];
+         if(cnt>m)break;
+       } 
+       if(cnt>=m){
+         r=m-1;
+         ans = mid;
+       }
+       else l=m+1;
+
+
+    }
+    cout<<ans;
+        
         return;
 }
 

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-using ll = long long;
+using ll = int;
 using ld = long double;
 #define all(a)  a.begin(),a.end()
 #define rall(a)  a.rbegin(),a.rend()
@@ -30,7 +30,7 @@ int dy[] = {1,0,-1,0};
 int dxx[] = {0,1,0,-1,1,1,-1,-1};
 int dyy[] = {1,0,-1,0,1,-1,1,-1};
 
-const long long MOD = 1e9+7 , N = 2e5+10 , INF = INT_FAST64_MAX;
+const long long MOD = 1e9+7 , N = 1e3+10 , INF = INT_FAST64_MAX;
 const long double PI= 3.14159265358979323846264338327950288;
 
 inline ll vin() {ll x;cin >> x;return x;}
@@ -40,10 +40,37 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+ll EngineMan(ll indA, ll indB, ll indC, vector<vector<ll> >&dp, string &a, string &b, string &c) {
+
+    if(indC >= c.size()) {
+        return 0;
+    } 
+
+    if(dp[indA][indB] != -1) {
+        return dp[indA][indB];
+    } 
+    ll changeInA, changeInB;
+
+    if(indA >= a.size()) {
+        changeInB = b[indB] != c[indC];
+        return dp[indA][indB] = changeInB + EngineMan(indA, indB+1, indC+1, dp, a, b, c);
+    } else if(indB >= b.size()) {
+        changeInA = a[indA] != c[indC]; 
+        return dp[indA][indB] = changeInA + EngineMan(indA+1, indB, indC+1, dp, a, b, c);
+    }
+    changeInA = a[indA] != c[indC];
+    changeInB = b[indB] != c[indC];
+
+    return dp[indA][indB] = min(changeInA + EngineMan(indA+1, indB, indC+1, dp, a, b, c), changeInB + EngineMan(indA, indB+1, indC+1, dp, a, b, c));
+}
+
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        string a, b, c;
+        cin >> a >> b >> c;
+
+        vector<vector<ll> > dp(N, vector<ll> (N, -1));
+        cout << EngineMan(0LL, 0LL, 0LL, dp, a, b , c) << endl;
         return;
 }
 
@@ -51,7 +78,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();

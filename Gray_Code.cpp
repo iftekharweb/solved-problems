@@ -43,20 +43,52 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 void solve()
 {
         ll n = vin();
-        ll x = 1;
-        x <<= n;
-        vector<vector<string> > a(17);
-        for(int i=0; i<x; i++) {
-            ll setBits = __builtin_popcount((int)i);
-            bitset<16> b = i;
-            a[setBits].push_back(b.to_string());
+        ll nn = (1<<n);
+        vector< vector<ll> > a(n+5);
+        for(int i=0; i<nn; i++) {
+            ll cnt = __builtin_popcount(i);
+            a[cnt].push_back(i);
         }
-        while(!a.back().size()) {
-            a.pop_back();
+        for(int i=0; i<=n; i++) {
+            sort(rall(a[i]));
         }
-        for(auto x:a) {
-            //for(int i=16-n; i<16; i++) cout << x.second[i];
-            //cout << endl;
+        vector<ll> pro = {0};
+        while(true) {
+            ll curr = pro.back();
+            if(!a[curr].size()) {
+                break;
+            }
+            bitset<16> bit = a[curr].back();
+            string s = bit.to_string();
+            reverse(all(s));
+            while(s.size() > n) s.pop_back();
+            reverse(all(s));
+            cout << s << endl;
+            a[curr].pop_back();
+
+            if(!curr) {
+                pro.push_back(1);
+            } else {
+                if(pro[(int)(pro.size())-2] < pro[(int)(pro.size())-1]) {
+                    if(a[curr+1].size()) {
+                        curr++;
+                        pro.push_back(curr);
+                    }
+                    else {
+                        curr--;
+                        pro.push_back(curr);
+                    }
+                } else {
+                    if(a[curr-1].size()) {
+                        curr--;
+                        pro.push_back(curr);
+                    }
+                    else {
+                        curr++;
+                        pro.push_back(curr);
+                    }
+                }
+            }
         }
         return;
 }

@@ -40,10 +40,38 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 //  #define cerr if(false)cerr
 #define pr(x) cerr << "\n" << (#x) << " is " << (x) << endl;
 
+
+vector<int> z_function(string s) {
+    int n = s.size();
+    vector<int> z(n);
+    int l = 0, r = 0;
+    for(int i = 1; i < n; i++) {
+        if(i < r) {
+            z[i] = min(r - i, z[i - l]);
+        }
+        while(i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+            z[i]++;
+        }
+        if(i + z[i] > r) {
+            l = i;
+            r = i + z[i];
+        }
+    }
+    return z;
+}
+
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        string a, b;
+        cin >> a >> b;
+        a = b+"#"+a;
+        vector<int> bb  = z_function(a);
+        ll ans = 0;
+        for(int i=0; i<bb.size(); i++) {
+            if(bb[i] == b.size()) ans++;
+        }
+        cout << ans << endl;
+
         return;
 }
 

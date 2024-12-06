@@ -42,8 +42,15 @@ vector<ll> DIGITS(ll n){vector<ll>a;while(n)a.push_back(n%10),n/=10;return a;}
 
 void solve()
 {
-        int a[2];
-        cout << a[3] << endl;
+        ll n = vin();
+        vector<string> a(n);
+        for(int i=0; i<n; i++) cin >> a[i];
+        for(int i=n-1; i>=0; i--) {
+            for(int j=0; j<4; j++) {
+                if(a[i][j] == '#') cout << j+1 << " ";
+            }
+        }
+        cout << endl;
         return;
 }
 
@@ -51,7 +58,7 @@ int main()
 {
         ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
-        int T = 1, CNT = 0;  //cin >> T;
+        int T = 1, CNT = 0;  cin >> T;
         while(T--){
           //  cout << "Case " << ++CNT << ": ";
             solve();
